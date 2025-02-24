@@ -10,11 +10,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="10">
-            <TextBlock Text="Paint Flow"
-                       FontSize="24"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
+
+            <Image Source="/img/PaintFlow_Logo.png" Height="126" Width="124"/>
 
             <Expander Header="1. 하도 전착" Margin="0,0,0,10">
                 <StackPanel Margin="10">
