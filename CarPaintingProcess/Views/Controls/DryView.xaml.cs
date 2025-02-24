@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarPaintingProcess.Views.UserControl
+namespace CarPaintingProcess.Views.Controls
 {
     /// <summary>
-    /// DefectDetectionView.xaml에 대한 상호 작용 논리
+    /// DryView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class DefectDetectionView : UserControl
+    public partial class DryView : UserControl
     {
-        public DefectDetectionView()
+        public DryView()
         {
             InitializeComponent();
         }

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarPaintingProcess.Views.UserControl
+namespace CarPaintingProcess.Views.Controls
 {
     /// <summary>
-    /// DryView.xaml에 대한 상호 작용 논리
+    /// SearchView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class DryView : UserControl
+    public partial class SearchView : UserControl
     {
-        public DryView()
+        public SearchView()
         {
             InitializeComponent();
         }

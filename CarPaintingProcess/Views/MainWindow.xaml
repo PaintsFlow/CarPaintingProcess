@@ -4,7 +4,7 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="Paint Flow Shell" 
-        Height="600" Width="1000">
+        Height="1080" Width="1920">
 
     <Grid>
         <Grid.ColumnDefinitions>
