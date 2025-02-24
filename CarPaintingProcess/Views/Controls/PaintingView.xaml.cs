@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarPaintingProcess.Views.UserControl
+namespace CarPaintingProcess.Views.Controls
 {
     /// <summary>
-    /// AlarmView.xaml에 대한 상호 작용 논리
+    /// PaintingView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AlarmView : UserControl
+    public partial class PaintingView : UserControl
     {
-        public AlarmView()
+        public PaintingView()
         {
             InitializeComponent();
         }
