@@ -4,9 +4,83 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <!--스프레이건 압력-->
+        <Label Content="1. AirSpray Pressure" Grid.Row="0" FontSize="16" />
+        <Label Content="스프레이건 압력" Grid.Row="0" FontSize="32" Margin="10,20,0,0"/>
+        <Border Grid.Row="0" Width="996" Height="191">
+            <lvc:CartesianChart Grid.Row="0" Series="{Binding AirSprayPressureData}" Margin="0,60,0,0">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Step="1"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="ml/min" LabelFormatter="{Binding YAirSprayPressure}"/>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Border>
+
+        <!--스프레이건 압력 사용자 제어-->
+        <Border Grid.Row="1" Width="996" Height="191" Background="#F5F0E5" CornerRadius="15">
+            <Grid>
+                <Label Content="사용자 제어" FontSize="16" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Label Content="● 스프레이건 압력 : " FontSize="16" Margin="100,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBox x:Name="AirSprayPressureUserValue" Width="181" Height="35" Margin="270,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Button x:Name="AirSprayPressureButton" Content="입력" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="460,0,0,0" Width="76" Height="35" Background="#A1824A">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
+
+        <!--페인트 유량-->
+        <Label Content="2. Paint Flow" Grid.Row="2" FontSize="16"/>
+        <Label Content="페인트 유량" Grid.Row="2" FontSize="32" Margin="10,20,0,0"/>
+        <Border Grid.Row="2" Width="996" Height="191">
+            <lvc:CartesianChart Grid.Row="2" Series="{Binding PaintFlowData}" Margin="0,60,0,0">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Step="1"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="bar" LabelFormatter="{Binding YPaintFlow}"/>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Border>
+
+        <!--페인트 유량 사용자 제어-->
+        <Border Grid.Row="3" Width="996" Height="191" Background="#F5F0E5" CornerRadius="15">
+            <Grid>
+                <Label Content="사용자 제어" FontSize="16" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Label Content="● 페인트 유량 : " FontSize="16" Margin="100,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBox x:Name="PaintFlowUserValue" Width="181" Height="35" Margin="235,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Button x:Name="PaintFlowButton" Content="입력" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="425,0,0,0" Width="76" Height="35" Background="#A1824A">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

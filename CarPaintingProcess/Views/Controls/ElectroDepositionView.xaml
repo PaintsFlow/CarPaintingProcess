@@ -28,7 +28,7 @@
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisX>
                 <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
+                    <lvc:Axis Title="%" LabelFormatter="{Binding YWaterLevel}"/>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
         </Border>
@@ -38,7 +38,7 @@
         <Label Content="2. Viscosity" Grid.Row="1" FontSize="16"/>
         <Label Content="점도" Grid.Row="1" FontSize="32" Margin="10,20,0,0"/>
         <Border Grid.Row="1" Width="996" Height="191">
-            <lvc:CartesianChart Grid.Row="1" Series="{Binding WaterLev}" Margin="0,60,0,0">
+            <lvc:CartesianChart Grid.Row="1" Series="{Binding ViscosityData}" Margin="0,60,0,0">
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
                         <lvc:Axis.Separator>
@@ -47,7 +47,7 @@
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisX>
                 <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
+                    <lvc:Axis Title="cP" LabelFormatter="{Binding YViscosity}"/>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
         </Border>
@@ -56,7 +56,7 @@
         <Label Content="3. pH" Grid.Row="2" FontSize="16"/>
         <Label Content="pH" Grid.Row="2" FontSize="32" Margin="10,20,0,0"/>
         <Border Grid.Row="2" Width="996" Height="191">
-            <lvc:CartesianChart Grid.Row="2" Series="{Binding WaterLevelData}" Margin="0,60,0,0">
+            <lvc:CartesianChart Grid.Row="2" Series="{Binding pHData}" Margin="0,60,0,0">
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
                         <lvc:Axis.Separator>
@@ -65,7 +65,7 @@
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisX>
                 <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
+                    <lvc:Axis Title="pH" LabelFormatter="{Binding YpH}"/>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
         </Border>
@@ -74,7 +74,7 @@
         <Label Content="4. Voltage" Grid.Row="3" FontSize="16"/>
         <Label Content="전류" Grid.Row="3" FontSize="32" Margin="10,20,0,0"/>
         <Border Grid.Row="3" Width="996" Height="191">
-            <lvc:CartesianChart Grid.Row="3" Series="{Binding WaterLevelData}" Margin="0,60,0,0">
+            <lvc:CartesianChart Grid.Row="3" Series="{Binding VoltageData}" Margin="0,60,0,0">
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
                         <lvc:Axis.Separator>
@@ -83,7 +83,7 @@
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisX>
                 <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
+                    <lvc:Axis Title="V" LabelFormatter="{Binding YVoltage}"/>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
         </Border>
@@ -92,7 +92,7 @@
         <Label Content="5. Current" Grid.Row="4" FontSize="16"/>
         <Label Content="전류" Grid.Row="4" FontSize="32" Margin="10,20,0,0"/>
         <Border Grid.Row="4" Width="996" Height="191">
-            <lvc:CartesianChart Grid.Row="4" Series="{Binding WaterLevelData}" Margin="0,60,0,0">
+            <lvc:CartesianChart Grid.Row="4" Series="{Binding CurrentData}" Margin="0,60,0,0">
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
                         <lvc:Axis.Separator>
@@ -101,7 +101,7 @@
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisX>
                 <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
+                    <lvc:Axis Title="A" LabelFormatter="{Binding YCurrent}"/>
                 </lvc:CartesianChart.AxisY>
             </lvc:CartesianChart>
         </Border>

@@ -3,10 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--수위-->
+        <Label Content="1. Temperature" Grid.Row="0" FontSize="16" />
+        <Label Content="온도" Grid.Row="0" FontSize="32" Margin="10,20,0,0"/>
+        <Border Grid.Row="0" Width="996" Height="191">
+            <lvc:CartesianChart Grid.Row="0" Series="{Binding TemperatureData}" Margin="0,60,0,0">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Step="1"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="°C" LabelFormatter="{Binding YTemperature}"/>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Border>
+
+
+        <!--점도-->
+        <Label Content="2. Humidity" Grid.Row="1" FontSize="16"/>
+        <Label Content="습도" Grid.Row="1" FontSize="32" Margin="10,20,0,0"/>
+        <Border Grid.Row="1" Width="996" Height="191">
+            <lvc:CartesianChart Grid.Row="1" Series="{Binding HumidityData}" Margin="0,60,0,0">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Step="1"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="%" LabelFormatter="{Binding YHumidity}"/>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Border>
     </Grid>
 </UserControl>
