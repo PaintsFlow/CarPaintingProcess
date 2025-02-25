@@ -4,9 +4,63 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" >
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+         
+        <!--카메라 화면-->
+        
+        <!--이미지 업로드-->
+        <StackPanel Grid.Row="0" Width="1038" Height="450">
+            <Label Content="검사 이미지" FontWeight="Bold" Grid.Row="0" FontSize="24"/>
+            <Image x:Name="DetectImage" MaxWidth="1038" Height="400" Source="{Binding DetectImageSource}"></Image>
+        </StackPanel>
+        <Button Name="ImageButton" Content="이미지 업로드" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="0,0,10,10" Command="{Binding LoadImageCommand}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+        </Button>
+        <Button Name="DetectionStartButton" Content="검사 시작" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="0,0,150,10">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <!--검사 결과-->
+        <Border Grid.Row="1" Background="#F5F0E5" CornerRadius="15" Width="1038" Height="424">
+            <StackPanel>
+                <Label Content="검사 결과" FontWeight="Bold" Grid.Row="0" FontSize="24" Margin="10"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!--감지된 색상-->
+                    <Label Grid.Column="0" Content="● 감지된 색상" Margin="20,0,0,0" FontSize="18" FontWeight="Black"/>
+                    <Image x:Name="DetectResultImage"></Image>
+                    <TextBlock Name="DetectResultRGB" Grid.Column="0" Text="RGB" VerticalAlignment="Top" HorizontalAlignment="center" Margin="0,300,0,0" FontSize="24" FontWeight="Bold"/>
+
+                    <!--주문 색상-->
+                    <Label Grid.Column="1" Content="● 주문 색상" Margin="20,0,0,0" FontSize="18" FontWeight="Black"/>
+                    <Image x:Name="OrderColorImage"></Image>
+                    <TextBlock x:Name="OrderColorRGB" Grid.Column="1" Text="RGB" VerticalAlignment="Top" HorizontalAlignment="center" Margin="0,300,0,0" FontSize="24" FontWeight="Bold"/>
+
+                    <!--감지 결과-->
+                    <Label Grid.Column="2" Content="결과 : " Margin="20,0,0,0" FontSize="18" FontWeight="Black" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="ResultTextBlock" Grid.Column="2" Text="일치" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="18" FontWeight="Heavy" Margin="0,5,0,0"/>
+                    <Label Grid.Column="2" Content="사유 : " Margin="20,0,0,0" FontSize="18" FontWeight="Black" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="ResultReasonText" Grid.Column="2" Text="~!~~" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" FontWeight="Heavy" Margin="80,5,0,0" Width="160"/>
+
+                </Grid>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
