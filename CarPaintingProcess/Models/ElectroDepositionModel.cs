@@ -8,5 +8,11 @@ namespace CarPaintingProcess.Models
 {
     internal class ElectroDepositionModel
     {
+        public DateTime time {  get; set; }
+        public double waterlevel { get; set; }
+        public double viscosity { get; set; }
+        public double ph { get; set; }
+        public double current {  get; set; }
+        public double voltage { get; set; }
     }
 }

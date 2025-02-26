@@ -8,5 +8,8 @@ namespace CarPaintingProcess.Models
 {
     internal class DryModel
     {
+        public DateTime time { get; set; }
+        public double temperature { get; set; }
+        public double humidity { get; set; }
     }
 }

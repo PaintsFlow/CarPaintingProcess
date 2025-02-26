@@ -8,5 +8,8 @@ namespace CarPaintingProcess.Models
 {
     internal class PaintingModel
     {
+        public DateTime time { get; set; }
+        public double paintamount { get; set; }
+        public double pressure { get; set; }
     }
 }
