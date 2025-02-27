@@ -9,6 +9,9 @@ using Prism.Mvvm;
 using MySql.Data.MySqlClient;
 using System.IO;
 using System.Windows;
+using System.Data;
+using System.Windows.Controls;
+using ZstdSharp.Unsafe;
 
 namespace CarPaintingProcess.Models.Services
 {
@@ -103,37 +106,23 @@ namespace CarPaintingProcess.Models.Services
                 MessageBox.Show("데이터가 반영되지 않았습니다!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        public List<Dictionary<string, object>> Select(string sql)
+        public DataTable Select(string sql)
         {
             // 간단한 Select문 메소드, 불러오는 데이터가 크면 그냥 직접 Select을 하는 것을 추천
             // 결과 저장 List
-            List<Dictionary<string, object>> resultList = new List<Dictionary<string, object>>();
+            DataTable dataTable = new DataTable(); 
             try
             {
-                using (MySqlCommand cmd = new MySqlCommand(sql, connection))
-                {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Dictionary<string, object> row = new Dictionary<string, object>();
-                            // 데이터 필드에 따른 길이
-                            for (int i = 0; i < reader.FieldCount; i++)
-                            {
-                                string columnName = reader.GetName(i);
-                                object value = reader.GetValue(i);
-                                row[columnName] = value;
-                            }
-                            resultList.Add(row);
-                        }
-                    }
-                }
+                MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter();
+                mySqlDataAdapter.SelectCommand = new MySqlCommand(sql, this.connection);
+                mySqlDataAdapter.Fill(dataTable);
+                return dataTable;
             }
             catch
             {
                 MessageBox.Show("데이터베이스 접속 오류", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            return resultList;
+            return dataTable;
         }
 
         public void Disconnect()
