@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarPaintingProcess.Models
 {
-    internal class ElectroDepositionModel
+    public class ElectroDepositionModel
     {
         public DateTime time {  get; set; }
         public double waterlevel { get; set; }

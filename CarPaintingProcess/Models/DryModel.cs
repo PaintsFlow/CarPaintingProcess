@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarPaintingProcess.Models
 {
-    internal class DryModel
+    public class DryModel
     {
         public DateTime time { get; set; }
         public double temperature { get; set; }
