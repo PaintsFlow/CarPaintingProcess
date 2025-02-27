@@ -11,5 +11,8 @@ namespace CarPaintingProcess.Models
         public DateTime time { get; set; }
         public double paintamount { get; set; }
         public double pressure { get; set; }
+
+        //읽기 전용 속성
+        public string TimeFormatted => time.ToString("yyyy-MM-dd HH:mm:ss");
     }
 }
