@@ -46,7 +46,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- 🔥 Notice (가로 자동 조정) -->
-                <Border Background="#4B0082" 
+                <Border Background="DarkBlue" 
                         CornerRadius="20"
                         Padding="10"
                         HorizontalAlignment="Stretch"
