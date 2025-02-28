@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CarPaintingProcess.ViewModels;
 
 namespace CarPaintingProcess.Views.Controls
 {
@@ -23,6 +24,7 @@ namespace CarPaintingProcess.Views.Controls
         public SearchView()
         {
             InitializeComponent();
+            DataContext = new SearchViewModel();
         }
     }
 }

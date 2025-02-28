@@ -1,15 +1,10 @@
-﻿<UserControl x:Class="CarPaintingProcess.Views.SideBarView"
+﻿<UserControl x:Class="CarPaintingProcess.Views.Controls.SideBarView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             Height="Auto" Width="Auto">
-    <Grid Background="#F8F8F8">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="10">
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
+              mc:Ignorable="d" >
 
     <UserControl.Resources>
 
@@ -49,8 +44,7 @@
 
     <Grid Background="White">
         <StackPanel Margin="10">
-
-            <Image Source="/img/PaintFlow_Logo.png"
+            <Image Source="../img/PaintFlow_Logo.png"
                    Width="200"
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20" />

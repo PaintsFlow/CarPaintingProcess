@@ -4,9 +4,98 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/TableStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--다운로드 버튼-->
+        <Button x:Name="DownloadButton" Content="다운로드" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" 
+                Height="35" Margin="20,0,0,0" FontSize="16" Background="#260099" Foreground="White" Command="{Binding SaveExcelCommand}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        
+        <!--날짜선택-->
+        <DatePicker Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,90,0" Width="200" SelectedDate="{Binding SelectedDate, Mode=TwoWay}">
+        </DatePicker>
+        <Button x:Name="SearchButton" Content="조회" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" 
+                FontSize="16" Width="60" Height="35" Background="#260099" Foreground="White" Command="{Binding LoadDataCommand}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <!--표-->
+        <Border Grid.Row="1" Background="#F5F0E5" CornerRadius="15" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <!--하도전착 표-->
+                <Grid Grid.Row="0">
+                    <Label Content="● 하도 전착" FontSize="20" FontWeight="SemiBold" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <DataGrid x:Name="ElectroDepositionTable" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                  CanUserReorderColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" 
+                                  FrozenColumnCount="1" ItemsSource="{Binding ElectroDepositionData}" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" />
+                            <DataGridTextColumn Header="수위(%)" Binding="{Binding waterlevel}" />
+                            <DataGridTextColumn Header="점도(cP)" Binding="{Binding viscosity}" />
+                            <DataGridTextColumn Header="pH" Binding="{Binding ph}" />
+                            <DataGridTextColumn Header="전류(V)" Binding="{Binding current}" />
+                            <DataGridTextColumn Header="전압(A)" Binding="{Binding voltage}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+
+                <!--도장공정 표-->
+                <Grid Grid.Row="1">
+                    <Label Content="● 도장 공정" FontSize="20" FontWeight="SemiBold" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <DataGrid x:Name="PaintingTable" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                              CanUserReorderColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" VerticalScrollBarVisibility="Auto"
+                              FrozenColumnCount="1" MaxHeight="250" MaxWidth="1000" ItemsSource="{Binding PaintingData}" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" />
+                            <DataGridTextColumn Header="페인트 유량(mL/min)" Binding="{Binding paintamount}" />
+                            <DataGridTextColumn Header="스프레이건 압력(bar)" Binding="{Binding pressure}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+                <!--건조 표-->
+                <Grid Grid.Row="2">
+                    <Label Content="● 건조 환경" FontSize="20" FontWeight="SemiBold" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <DataGrid x:Name="DryTable" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                              CanUserReorderColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" VerticalScrollBarVisibility="Auto"
+                              FrozenColumnCount="1" MaxHeight="250" MaxWidth="1000" ItemsSource="{Binding DryData}" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}"/>
+                            <DataGridTextColumn Header="온도(℃)" Binding="{Binding temperature}" />
+                            <DataGridTextColumn Header="습도(%)" Binding="{Binding humidity}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </Border>
+
     </Grid>
 </UserControl>

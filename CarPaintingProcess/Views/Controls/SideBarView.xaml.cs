@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CarPaintingProcess.Views
+namespace CarPaintingProcess.Views.Controls
 {
     /// <summary>
     /// SideBarView.xaml에 대한 상호 작용 논리

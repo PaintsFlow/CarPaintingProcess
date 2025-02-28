@@ -12,6 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using Microsoft.Win32;
+using DryIoc;
+using CarPaintingProcess.ViewModels;
+
 
 namespace CarPaintingProcess.Views.Controls
 {
@@ -23,6 +28,7 @@ namespace CarPaintingProcess.Views.Controls
         public DefectDetectionView()
         {
             InitializeComponent();
+            DataContext = new DefectDetectionViewModel();
         }
     }
 }
