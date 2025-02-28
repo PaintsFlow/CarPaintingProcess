@@ -40,19 +40,17 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <!-- Notice -->
-                    <RowDefinition Height="Auto"/>
-                    <!-- 알람 리스트 -->
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- 🔥 Notice (가로 자동 조정) -->
+                <!-- 알람 제목 -->
                 <Border Background="DarkBlue" 
                         CornerRadius="20"
                         Padding="10"
                         HorizontalAlignment="Stretch"
                         Margin="10"
                         Grid.Row="0">
-                    <TextBlock Text="Notice"
+                    <TextBlock Text="알람 목록"
                                Foreground="White"
                                FontSize="16"
                                FontWeight="Bold"
@@ -60,8 +58,9 @@
                                TextAlignment="Center"/>
                 </Border>
 
+                <!-- 전체 알람 목록 -->
                 <ListView ItemsSource="{Binding Alarms}"
-                          Margin="10,10,10,10"
+                          Margin="10"
                           Background="White"
                           MaxHeight="400"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
