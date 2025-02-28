@@ -19,6 +19,7 @@ namespace CarPaintingProcess
         {
             containerRegistry.RegisterForNavigation<ProcessAView>("ProcessAView");
             containerRegistry.RegisterForNavigation<ProcessBView>("ProcessBView");
+            containerRegistry.RegisterForNavigation<SearchView>("SearchView");
             containerRegistry.RegisterForNavigation<AlarmView>("AlarmView");
             containerRegistry.RegisterForNavigation<MiniAlarmView, MiniAlarmViewModel>();
             containerRegistry.RegisterForNavigation<AlarmView, AlarmViewModel>();

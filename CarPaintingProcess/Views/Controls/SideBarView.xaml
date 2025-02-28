@@ -121,7 +121,7 @@
 
             <Button Style="{StaticResource HoverButtonStyle}"
                     Command="{Binding NavigateCommand}"
-                    CommandParameter="ProcessEView"
+                    CommandParameter="SearchView"
                     Margin="0,0,0,10">
                 <Grid>
                     <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
