@@ -30,23 +30,5 @@ namespace CarPaintingProcess.Views.Controls
             InitializeComponent();
             DataContext = new DefectDetectionViewModel();
         }
-
-        //private void ImageButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    string imgpath;
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    openFileDialog.Multiselect = false;
-        //    openFileDialog.Filter = "JPEG, JPG files (*.jpeg 혹은 *.jpg)|*.jpeg;*.jpg|PNG files (*.png)|*.png|All files (*.*)|*.*";
-
-        //    if (openFileDialog.ShowDialog() == true)
-        //    {
-        //        imgpath = openFileDialog.FileName;
-        //        DetectImage.Source = new BitmapImage(new Uri(imgpath));
-
-        //    }
-
-
-
-        //}
     }
 }

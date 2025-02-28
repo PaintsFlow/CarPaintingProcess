@@ -8,7 +8,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles/TableColumnSort.xaml"/>
+                <ResourceDictionary Source="../Styles/TableStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -41,18 +41,20 @@
         </Button>
 
         <!--표-->
-        <Border Grid.Row="1" Background="#F5F0E5" Width="1038" Height="843" CornerRadius="15">
+        <Border Grid.Row="1" Background="#F5F0E5" CornerRadius="15" Margin="5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <Label Content="● 하도 전착" FontSize="20" FontWeight="SemiBold" Margin="10"/>
+                
+                <!--하도전착 표-->
+                <Grid Grid.Row="0">
+                    <Label Content="● 하도 전착" FontSize="20" FontWeight="SemiBold" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <DataGrid x:Name="ElectroDepositionTable" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
-                              CanUserReorderColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" 
-                              FrozenColumnCount="1" MaxWidth="1000" ItemsSource="{Binding ElectroDepositionData}" IsReadOnly="True" HorizontalAlignment="Left" Margin="50,0,0,0">
+                                  CanUserReorderColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" 
+                                  FrozenColumnCount="1" ItemsSource="{Binding ElectroDepositionData}" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" />
                             <DataGridTextColumn Header="수위(%)" Binding="{Binding waterlevel}" />
@@ -62,33 +64,36 @@
                             <DataGridTextColumn Header="전압(A)" Binding="{Binding voltage}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
 
-                <StackPanel Grid.Row="1">
-                    <Label Content="● 도장 공정" FontSize="20" FontWeight="SemiBold" Margin="10"/>
+
+                <!--도장공정 표-->
+                <Grid Grid.Row="1">
+                    <Label Content="● 도장 공정" FontSize="20" FontWeight="SemiBold" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <DataGrid x:Name="PaintingTable" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
-                              CanUserReorderColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" 
-                              FrozenColumnCount="1" MaxHeight="250" MaxWidth="1000" ItemsSource="{Binding PaintingData}" IsReadOnly="True" HorizontalAlignment="Left" Margin="50,0,0,0">
+                              CanUserReorderColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" VerticalScrollBarVisibility="Auto"
+                              FrozenColumnCount="1" MaxHeight="250" MaxWidth="1000" ItemsSource="{Binding PaintingData}" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" />
                             <DataGridTextColumn Header="페인트 유량(mL/min)" Binding="{Binding paintamount}" />
                             <DataGridTextColumn Header="스프레이건 압력(bar)" Binding="{Binding pressure}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
 
-                <StackPanel Grid.Row="2">
-                    <Label Content="● 건조 환경" FontSize="20" FontWeight="SemiBold" Margin="10"/>
+                <!--건조 표-->
+                <Grid Grid.Row="2">
+                    <Label Content="● 건조 환경" FontSize="20" FontWeight="SemiBold" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <DataGrid x:Name="DryTable" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
-                              CanUserReorderColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" 
-                              FrozenColumnCount="1" MaxHeight="250" MaxWidth="1000" ItemsSource="{Binding DryData}" IsReadOnly="True" HorizontalAlignment="Left" Margin="50,0,0,0">
+                              CanUserReorderColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" VerticalScrollBarVisibility="Auto"
+                              FrozenColumnCount="1" MaxHeight="250" MaxWidth="1000" ItemsSource="{Binding DryData}" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}"/>
                             <DataGridTextColumn Header="온도(℃)" Binding="{Binding temperature}" />
                             <DataGridTextColumn Header="습도(%)" Binding="{Binding humidity}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
             </Grid>
         </Border>
 

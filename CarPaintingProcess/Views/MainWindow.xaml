@@ -4,17 +4,30 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="Paint Flow Shell" 
-        Height="600" Width="1000">
+        Height="1080" Width="1920">
 
     <Grid>
+        <!-- 2열: 왼쪽(사이드바+알람), 오른쪽(메인) -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1*" MinWidth="300" />
+            <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
-
-        <ContentControl prism:RegionManager.RegionName="LeftSideRegion"
-                        Grid.Column="0" />
-
+        <!-- 왼쪽 컬럼을 다시 2개의 Row로 나누어 각각 Region 지정 -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <!-- 사이드바 -->
+                <RowDefinition Height="700*" MinHeight="400" />
+                <!-- 알람 -->
+                <RowDefinition Height="380*" />
+            </Grid.RowDefinitions>
+            <!-- 사이드바 Region -->
+            <ContentControl prism:RegionManager.RegionName="SideBarRegion"
+                            Grid.Row="0" />
+            <!-- 알람 Region -->
+            <ContentControl prism:RegionManager.RegionName="AlarmRegion"
+                            Grid.Row="1" />
+        </Grid>
+        <!-- 오른쪽(메인) Region -->
         <ContentControl prism:RegionManager.RegionName="MainRegion"
                         Grid.Column="1" />
     </Grid>

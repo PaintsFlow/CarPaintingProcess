@@ -23,8 +23,15 @@ namespace CarPaintingProcess.ViewModels
         public BitmapImage DetectImageSource
         {
             get { return _DetectImageSource; }
-            set { SetProperty(ref _DetectImageSource, value); }
+            set 
+            { 
+                SetProperty(ref _DetectImageSource, value); 
+                RaisePropertyChanged(nameof(IsImageLoaded));
+            }
         }
+
+        //이미지가 로드되었는지 확인하는 속성
+        public bool IsImageLoaded => DetectImageSource == null;
 
         public DefectDetectionViewModel()
         {
