@@ -1,12 +1,244 @@
 ﻿<UserControl x:Class="CarPaintingProcess.Views.Controls.AlarmView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="900"
+             Background="White">
+
+    <!-- 자원(Storyboard 등)을 여기서 정의 -->
+    <UserControl.Resources>
+        <!-- 알람 점멸 애니메이션 -->
+        <Storyboard x:Key="FlashStoryboard" RepeatBehavior="Forever" AutoReverse="True">
+            <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                            From="Red" To="White" Duration="0:0:1" />
+        </Storyboard>
+    </UserControl.Resources>
+
+    <!-- 세로 3분할을 위한 Grid -->
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 첫 번째 행: 하도 전착 -->
+        <StackPanel Grid.Row="0" Margin="20">
+            <TextBlock Text="• 하도 전착"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="Black"
+                       Margin="5,15,5,5"/>
+
+            <ListView ItemsSource="{Binding HadoAlarms}"
+                      Background="White"
+                      Margin="0,5,0,10"
+                      MaxHeight="250"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      HorizontalContentAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White"
+                                CornerRadius="5"
+                                Padding="10"
+                                Margin="5"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                HorizontalAlignment="Stretch">
+
+                            <!-- 로드 시 점멸 애니메이션 실행 -->
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard Storyboard="{StaticResource FlashStoryboard}" />
+                                </EventTrigger>
+                            </Border.Triggers>
+
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="60"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- 메시지 및 값 -->
+                                <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Message}" FontSize="14" Foreground="Black"/>
+                                    <TextBlock Text=": " FontSize="14" Foreground="Black" Margin="3,0,3,0"/>
+                                    <TextBlock Text="{Binding Value}" FontSize="14" Foreground="Orange"/>
+                                </StackPanel>
+
+                                <!-- 타임스탬프 -->
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Timestamp, StringFormat='{}{0:HH:mm:ss}'}"
+                                           FontSize="12"
+                                           Foreground="Black"
+                                           TextAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="5,0,10,0"/>
+
+                                <!-- 알람 코드 -->
+                                <TextBlock Grid.Column="2"
+                                           Text="{Binding AlarmCode}"
+                                           FontSize="14"
+                                           Foreground="Orange"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"/>
+
+                                <!-- 삭제 버튼 -->
+                                <Button Content="삭제"
+                                        Command="{Binding DeleteAlarmCommand}"
+                                        CommandParameter="{Binding}"
+                                        Grid.Column="3"
+                                        Width="60"
+                                        Height="30"
+                                        Background="#FF3B30"
+                                        Foreground="White"
+                                        BorderBrush="#FF3B30"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+        <!-- 두 번째 행: 건조 환경 -->
+        <StackPanel Grid.Row="1" Margin="20">
+            <TextBlock Text="• 건조 환경"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="Black"
+                       Margin="5,15,5,5"/>
+
+            <ListView ItemsSource="{Binding GunjyoAlarms}"
+                      Background="White"
+                      Margin="0,5,0,10"
+                      MaxHeight="250"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      HorizontalContentAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White"
+                                CornerRadius="5"
+                                Padding="10"
+                                Margin="5"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                HorizontalAlignment="Stretch">
+
+                            <!-- 로드 시 점멸 애니메이션 실행 -->
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard Storyboard="{StaticResource FlashStoryboard}" />
+                                </EventTrigger>
+                            </Border.Triggers>
+
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="60"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- 메시지 및 값 -->
+                                <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Message}" FontSize="14" Foreground="Black"/>
+                                    <TextBlock Text=": " FontSize="14" Foreground="Black" Margin="3,0,3,0"/>
+                                    <TextBlock Text="{Binding Value}" FontSize="14" Foreground="Orange"/>
+                                </StackPanel>
+
+                                <!-- 타임스탬프 -->
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding Timestamp, StringFormat='{}{0:HH:mm:ss}'}"
+                                           FontSize="12"
+                                           Foreground="Black"
+                                           TextAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="5,0,10,0"/>
+
+                                <!-- 알람 코드 -->
+                                <TextBlock Grid.Column="2"
+                                           Text="{Binding AlarmCode}"
+                                           FontSize="14"
+                                           Foreground="Orange"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"/>
+
+                                <!-- 삭제 버튼 -->
+                                <Button Content="삭제"
+                                        Command="{Binding DeleteAlarmCommand}"
+                                        CommandParameter="{Binding}"
+                                        Grid.Column="3"
+                                        Width="60"
+                                        Height="30"
+                                        Background="#FF3B30"
+                                        Foreground="White"
+                                        BorderBrush="#FF3B30"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+        <!-- 세 번째 행: 도장 공정 + 제어 버튼 -->
+        <StackPanel Grid.Row="2" Margin="20">
+            <TextBlock Text="• 도장 공정"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="Black"
+                       Margin="5,15,5,5"/>
+
+            <ListView ItemsSource="{Binding DojangAlarms}"
+                      Background="White"
+                      Margin="0,5,0,10"
+                      MaxHeight="250"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      HorizontalContentAlignment="Stretch">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="White"
+                                CornerRadius="5"
+                                Padding="10"
+                                Margin="5"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                HorizontalAlignment="Stretch">
+
+                            <!-- 로드 시 점멸 애니메이션 실행 -->
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard Storyboard="{StaticResource FlashStoryboard}" />
+                                </EventTrigger>
+                            </Border.Triggers>
+
+                            <Grid HorizontalAlignment="Stretch">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Message}"
+                                               FontSize="14"
+                                               Foreground="Black"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- 도장 공정 제어 버튼 -->
+            <Button Content="제어 하기"
+                    Background="#4B0082"
+                    Foreground="White"
+                    Padding="8,5"
+                    Margin="10"
+                    HorizontalAlignment="Right"/>
+        </StackPanel>
     </Grid>
 </UserControl>
