@@ -5,10 +5,6 @@ using CarPaintingProcess.Views;
 using Prism.Regions;
 using CarPaintingProcess.Views.Controls;
 using CarPaintingProcess.ViewModels;
-using System;
-using System.ServiceProcess;
-using System.Diagnostics;
-using System.ComponentModel.Design;
 
 namespace CarPaintingProcess
 {
@@ -23,7 +19,10 @@ namespace CarPaintingProcess
         {
             containerRegistry.RegisterForNavigation<ProcessAView>("ProcessAView");
             containerRegistry.RegisterForNavigation<ProcessBView>("ProcessBView");
-            containerRegistry.RegisterForNavigation<DefectDetectionView, DefectDetectionViewModel>();
+            containerRegistry.RegisterForNavigation<AlarmView>("AlarmView");
+            containerRegistry.RegisterForNavigation<MiniAlarmView, MiniAlarmViewModel>();
+            containerRegistry.RegisterForNavigation<AlarmView, AlarmViewModel>();
+
         }
 
         protected override void OnInitialized()
@@ -32,10 +31,9 @@ namespace CarPaintingProcess
 
             // Prism에서 제공하는 DI 컨테이너로부터 RegionManager 가져오기
             var regionManager = Container.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion("LeftSideRegion", typeof(SideBarView));
-            regionManager.RegisterViewWithRegion("MainRegion", typeof(PaintingView));
-        }
+            regionManager.RegisterViewWithRegion("SideBarRegion", typeof(SideBarView));
+            regionManager.RegisterViewWithRegion("AlarmRegion", typeof(MiniAlarmView));
 
-        
+        }
     }
 }

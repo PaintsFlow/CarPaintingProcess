@@ -11,68 +11,134 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="10">
 
-            <Image Source="/img/PaintFlow_Logo.png" Height="126" Width="124"/>
+    <UserControl.Resources>
 
-            <Expander Header="1. 하도 전착" Margin="0,0,0,10">
-                <StackPanel Margin="10">
-                    <Button Content="세부 공정 A" 
-                            Command="{Binding NavigateCommand}"
-                            CommandParameter="ProcessAView"
-                            Margin="0,0,0,5"/>
-                    <Button Content="세부 공정 B"
-                            Command="{Binding NavigateCommand}"
-                            CommandParameter="ProcessBView"/>
-                </StackPanel>
-            </Expander>
+        <Style x:Key="HoverButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#41302B"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="BorderThickness" Value="0"/>
 
-            <Expander Header="2. 건조 환경" Margin="0,0,0,10">
-                <StackPanel Margin="10">
-                    <Button Content="건조 프로세스 A"
-                            Command="{Binding NavigateCommand}"
-                            CommandParameter="ProcessCView"
-                            Margin="0,0,0,5"/>
-                    <Button Content="건조 프로세스 B"
-                            Command="{Binding NavigateCommand}"
-                            CommandParameter="ProcessDView"/>
-                </StackPanel>
-            </Expander>
-        </StackPanel>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                Padding="5"
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
 
-        <!-- (2) 알림(Notice) 영역 -->
-        <StackPanel Grid.Row="1" Margin="10">
-            <Border Background="#3f1eac"
-                    CornerRadius="4"
-                    Padding="8"
-                    Margin="0,0,0,8">
-                <TextBlock Text="Notice" 
-                           Foreground="White"
-                           HorizontalAlignment="Center"/>
-            </Border>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F8EEE2"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#E0DDC8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-            <Border CornerRadius="4"
-                    BorderBrush="#e2b400"
-                    BorderThickness="4"
-                    Background="#fff8e0"
-                    Padding="8"
-                    Margin="0,0,0,8">
-                <TextBlock>
-                    <Run Text="Important: 알람알람" />
-                    <LineBreak/>
-                    <Run Text="알람알람" FontSize="12"/>
-                </TextBlock>
-            </Border>
+    </UserControl.Resources>
 
-            <Border CornerRadius="4"
-                    BorderBrush="#e2b400"
-                    BorderThickness="4"
-                    Background="#fff8e0"
-                    Padding="8">
-                <TextBlock>
-                    <Run Text="Another Notice" />
-                    <LineBreak/>
-                    <Run Text="알람알람" FontSize="12"/>
-                </TextBlock>
-            </Border>
+    <Grid Background="White">
+        <StackPanel Margin="10">
+
+            <Image Source="/img/PaintFlow_Logo.png"
+                   Width="200"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20" />
+
+            <Button Style="{StaticResource HoverButtonStyle}"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="ProcessAView"
+                    Margin="0,0,0,10">
+                <Grid>
+                    <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
+                            HorizontalAlignment="Left">
+                        <TextBlock Text="1" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="하도 전착" Margin="40,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <Button Style="{StaticResource HoverButtonStyle}"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="ProcessBView"
+                    Margin="0,0,0,10">
+                <Grid>
+                    <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
+                            HorizontalAlignment="Left">
+                        <TextBlock Text="2" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="건조 환경" Margin="40,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <Button Style="{StaticResource HoverButtonStyle}"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="ProcessCView"
+                    Margin="0,0,0,10">
+                <Grid>
+                    <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
+                            HorizontalAlignment="Left">
+                        <TextBlock Text="3" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="도장 공정" Margin="40,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <Button Style="{StaticResource HoverButtonStyle}"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="ProcessDView"
+                    Margin="0,0,0,10">
+                <Grid>
+                    <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
+                            HorizontalAlignment="Left">
+                        <TextBlock Text="4" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="결함 검사" Margin="40,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <Button Style="{StaticResource HoverButtonStyle}"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="AlarmView"
+                    Margin="0,0,0,10">
+                <Grid>
+                    <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
+                            HorizontalAlignment="Left">
+                        <TextBlock Text="5" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="알림" Margin="40,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <Button Style="{StaticResource HoverButtonStyle}"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="ProcessEView"
+                    Margin="0,0,0,10">
+                <Grid>
+                    <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
+                            HorizontalAlignment="Left">
+                        <TextBlock Text="6" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="조회 / 다운로드" Margin="40,0,0,0" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
         </StackPanel>
     </Grid>
 </UserControl>
