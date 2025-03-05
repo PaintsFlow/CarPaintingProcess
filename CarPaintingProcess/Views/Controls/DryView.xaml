@@ -19,14 +19,11 @@
             <Border  MinHeight="190">
                 <lvc:CartesianChart Series="{Binding TemperatureData}" >
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator Step="1"/>
-                            </lvc:Axis.Separator>
+                        <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}">
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="°C" LabelFormatter="{Binding YTemperature}"/>
+                        <lvc:Axis Title="Temperature"/>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
             </Border>
@@ -39,14 +36,10 @@
             <Border MinHeight="190">
                 <lvc:CartesianChart Series="{Binding HumidityData}">
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
+                        <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="%" LabelFormatter="{Binding YHumidity}"/>
+                        <lvc:Axis Title="Humidity"/>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
             </Border>
