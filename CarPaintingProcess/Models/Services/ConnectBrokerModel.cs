@@ -73,7 +73,7 @@ namespace CarPaintingProcess.Models.Services
         {
             try
             {
-                if (channel != null)
+                if (channel == null)
                 {
                     MessageBox.Show("❌ 채널이 생성되지 않았습니다.");
                     return;
