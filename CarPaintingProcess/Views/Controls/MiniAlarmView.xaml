@@ -110,7 +110,7 @@
                                                    Margin="3,0,3,0"/>
                                         <TextBlock Text="{Binding Value}" 
                                                    FontSize="13" 
-                                                   Foreground="Orange"/>
+                                                   Foreground="black"/>
                                     </StackPanel>
 
                                     <TextBlock Grid.Column="2"

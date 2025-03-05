@@ -22,7 +22,7 @@ namespace CarPaintingProcess
             containerRegistry.RegisterForNavigation<AlarmView>("AlarmView");
             containerRegistry.RegisterForNavigation<MiniAlarmView, MiniAlarmViewModel>();
             containerRegistry.RegisterForNavigation<AlarmView, AlarmViewModel>();
-
+            containerRegistry.RegisterDialog<ControlDialog, ControlDialogViewModel>();
         }
 
         protected override void OnInitialized()
