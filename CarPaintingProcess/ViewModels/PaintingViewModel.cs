@@ -37,9 +37,7 @@ namespace CarPaintingProcess.ViewModels
         }
 
         public Func<double,string> TimeFormatter { get; set; }
-
-        public ICommand PaintflowControlCommand { get; }
-        public ICommand AirsprayPressureControlCommand { get; }
+        public DelegateCommand<Tuple<string,string>> UserControlCommand { get; }
 
         public PaintingViewModel()
         {
@@ -51,18 +49,35 @@ namespace CarPaintingProcess.ViewModels
             AirsprayPressureData = InitializeChartSeries("AirSpray Pressure");
             TimeFormatter = value => DateTime.FromOADate(value).ToString("HH:mm:ss");
 
-            PaintflowControlCommand = new DelegateCommand(PaintflowControl);
-            AirsprayPressureControlCommand = new DelegateCommand(AirsprayPressureControl);
+            UserControlCommand = new DelegateCommand<Tuple<string, string>>(ExecuteUserControlCommand);
         }
 
-        private void AirsprayPressureControl()
+        private void ExecuteUserControlCommand(Tuple<string, string> parameter)
         {
-            //if (AirsprayPressureData < )
-        }
+            if (parameter == null) return;
 
-        private void PaintflowControl()
-        {
+            string message;
+            string machine = parameter.Item1; // airspray(0) or paintflow(1)
+            string mode = parameter.Item2;  // on(1) or off(0)
 
+            if (machine == "Airspray")
+            {
+                if (mode == "on")
+                {
+                    message = "0, 1";
+                }
+                else message = "0, 0";
+            }
+            else
+            {
+                if (mode == "on")
+                {
+                    message = "1, 1";
+                }
+                else message = "1, 0";
+            }
+
+            _connectBrokerModel.Producerfunc(message);
         }
 
         private SeriesCollection InitializeChartSeries(string title)

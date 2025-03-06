@@ -123,14 +123,16 @@ namespace CarPaintingProcess.Models.Services
         }
 
         // exchange : control
-        // [airsprayPressure:0 , paintFlow:1], [down:0, up:1]
-        // ex) 0,1 = airsprayPressure up
+        // [airsprayPressure:0 , paintFlow:1], [off:0, on:1]
+        // ex) 0,1 = airsprayPressure on
         public async Task Produce(string message)
         {
             try
             {
                 if (channel != null)
                 {
+
+                    //await channel.ExchangeDeclareAsync(exchange: "control", type: ExchangeType.Fanout); // 새로운 exchange 생성
                     var body = Encoding.UTF8.GetBytes(message);
 
                     await channel.BasicPublishAsync(exchange: "control", routingKey: string.Empty, body: body);
