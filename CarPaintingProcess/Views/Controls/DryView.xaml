@@ -18,6 +18,9 @@
             <Label Content="온도" FontSize="32" />
             <Border  MinHeight="190">
                 <lvc:CartesianChart Series="{Binding TemperatureData}" >
+                    <lvc:CartesianChart.DataTooltip>
+                        <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                    </lvc:CartesianChart.DataTooltip>
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}">
                         </lvc:Axis>
@@ -35,6 +38,9 @@
             <Label Content="습도" FontSize="32"/>
             <Border MinHeight="190">
                 <lvc:CartesianChart Series="{Binding HumidityData}">
+                    <lvc:CartesianChart.DataTooltip>
+                        <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                    </lvc:CartesianChart.DataTooltip>
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                     </lvc:CartesianChart.AxisX>

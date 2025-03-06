@@ -22,6 +22,9 @@
                 <Label Content="수위" FontSize="32" />
                 <Border MinHeight="190">
                     <lvc:CartesianChart Series="{Binding WaterlevelData}" >
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
@@ -40,6 +43,9 @@
                 <Label Content="점도" FontSize="32"/>
                 <Border MinHeight="190">
                     <lvc:CartesianChart Series="{Binding ViscosityData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
@@ -57,6 +63,9 @@
                 <Label Content="pH" FontSize="32" />
                 <Border MinHeight="190" >
                     <lvc:CartesianChart Series="{Binding pHData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
@@ -74,6 +83,9 @@
                 <Label Content="전류" FontSize="32" />
                 <Border MinHeight="190">
                     <lvc:CartesianChart Series="{Binding CurrentData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
@@ -91,6 +103,9 @@
                 <Label Content="전압" FontSize="32" />
                 <Border MinHeight="190">
                     <lvc:CartesianChart Series="{Binding VoltageData}" >
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>

@@ -19,6 +19,9 @@
                 <Label Content="스프레이건 압력" FontSize="32"/>
                 <Border MinHeight="190">
                     <lvc:CartesianChart Series="{Binding AirsprayPressureData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
@@ -70,6 +73,9 @@
                 <Label Content="페인트 유량" FontSize="32" />
                 <Border MinHeight="190">
                     <lvc:CartesianChart Series="{Binding PaintflowData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
