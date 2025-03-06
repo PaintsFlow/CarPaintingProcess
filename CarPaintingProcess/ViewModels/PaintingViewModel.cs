@@ -7,6 +7,8 @@ using System;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System.Windows.Threading;
+using System.Windows.Input;
+using Prism.Commands;
 
 namespace CarPaintingProcess.ViewModels
 {
@@ -36,6 +38,9 @@ namespace CarPaintingProcess.ViewModels
 
         public Func<double,string> TimeFormatter { get; set; }
 
+        public ICommand PaintflowControlCommand { get; }
+        public ICommand AirsprayPressureControlCommand { get; }
+
         public PaintingViewModel()
         {
             _connectBrokerModel = ConnectBrokerModel.GetInstance();
@@ -45,6 +50,19 @@ namespace CarPaintingProcess.ViewModels
             PaintflowData = InitializeChartSeries("Paint Flow");
             AirsprayPressureData = InitializeChartSeries("AirSpray Pressure");
             TimeFormatter = value => DateTime.FromOADate(value).ToString("HH:mm:ss");
+
+            PaintflowControlCommand = new DelegateCommand(PaintflowControl);
+            AirsprayPressureControlCommand = new DelegateCommand(AirsprayPressureControl);
+        }
+
+        private void AirsprayPressureControl()
+        {
+            //if (AirsprayPressureData < )
+        }
+
+        private void PaintflowControl()
+        {
+
         }
 
         private SeriesCollection InitializeChartSeries(string title)
@@ -70,7 +88,7 @@ namespace CarPaintingProcess.ViewModels
 
             // 데이터 파싱
             double[] parsedValues = new double[2]; // 첫 번째 데이터는 time이므로 제외
-            for (int i = 0; i < 2; i++) // 인덱스 수정 (0부터 4까지)
+            for (int i = 0; i < 2; i++)
             {
                 if (!double.TryParse(value[i+8], out parsedValues[i]))
                     parsedValues[i] = 0; // 변환 실패 시 기본값
@@ -108,5 +126,7 @@ namespace CarPaintingProcess.ViewModels
                 values.RemoveAt(0);
             }
         }
+
+        //private void 
     }
 }

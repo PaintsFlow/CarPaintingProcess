@@ -33,14 +33,27 @@ namespace CarPaintingProcess.Models.Services
 
         public async void Consumerfunc()
         {
-            if (await ConnectBroker())  // 연결이 성공하면
+            if (connection == null || !connection.IsOpen) // 연결이 없거나 닫혀 있으면
             {
-                await Consume();  // 메시지 소비 시작
+                if (!await ConnectBroker()) // 연결 실패 시
+                {
+                    return;
+                }
             }
-            else
+
+            await Consume(); // 연결이 이미 되어 있거나, 새로 연결되면 메시지 소비 시작
+        }
+
+        public async void Producerfunc(string message)
+        {
+            if (connection == null || !connection.IsOpen)
             {
-                MessageBox.Show("🚨 RabbitMQ 연결에 실패했습니다. 다시 시도하세요.");
+                if (!await ConnectBroker())
+                {
+                    return;
+                }
             }
+            await Produce(message);
         }
 
         private async Task<bool> ConnectBroker()
@@ -54,6 +67,7 @@ namespace CarPaintingProcess.Models.Services
                     Password = "guest",
                     Port = 5672
                 };
+                Console.WriteLine("✅ RabbitMQ 연결 시도 중...");
 
                 connection = await factory.CreateConnectionAsync();
                 channel = await connection.CreateChannelAsync();
@@ -110,7 +124,28 @@ namespace CarPaintingProcess.Models.Services
                 MessageBox.Show($"🚨 메세지 수신 실패 : {ex.Message}");
             }
         }
-        
-       
+
+        // exchange : control
+        // [airsprayPressure:0 , paintFlow:1], [down:0, up:1]
+        // ex) 0,1 = airsprayPressure up
+        public async Task Produce(string message)
+        {
+            try
+            {
+                if (channel != null)
+                {
+                    var body = Encoding.UTF8.GetBytes(message);
+
+                    await channel.BasicPublishAsync(exchange: "control", routingKey: string.Empty, body: body);
+                    Console.WriteLine($"Sent : {message}");
+
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"🚨 메세지 게시 오류: {ex.Message}");
+            }
+        }       
     }
 }
