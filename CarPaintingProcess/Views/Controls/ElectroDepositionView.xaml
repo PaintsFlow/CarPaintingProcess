@@ -6,105 +6,100 @@
              xmlns:local="clr-namespace:CarPaintingProcess.Views"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" >
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        
-        <!--수위-->
-        <Label Content="1. Water Level" Grid.Row="0" FontSize="16" />
-        <Label Content="수위" Grid.Row="0" FontSize="32" Margin="10,20,0,0"/>
-        <Border Grid.Row="0" Width="996" Height="191">
-            <lvc:CartesianChart Grid.Row="0" Series="{Binding WaterLevelData}" Margin="0,60,0,0">
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator Step="1"/>
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
-        </Border>
-        
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <!--점도-->
-        <Label Content="2. Viscosity" Grid.Row="1" FontSize="16"/>
-        <Label Content="점도" Grid.Row="1" FontSize="32" Margin="10,20,0,0"/>
-        <Border Grid.Row="1" Width="996" Height="191">
-            <lvc:CartesianChart Grid.Row="1" Series="{Binding WaterLev}" Margin="0,60,0,0">
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator Step="1"/>
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
-        </Border>
+            <!--수위-->
+            <StackPanel Grid.Row="0" Margin="5">
+                <Label Content="1. Water Level" FontSize="16" />
+                <Label Content="수위" FontSize="32" />
+                <Border MinHeight="190">
+                    <lvc:CartesianChart Series="{Binding WaterlevelData}" >
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Water Level"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Border>
+            </StackPanel>
 
-        <!--pH-->
-        <Label Content="3. pH" Grid.Row="2" FontSize="16"/>
-        <Label Content="pH" Grid.Row="2" FontSize="32" Margin="10,20,0,0"/>
-        <Border Grid.Row="2" Width="996" Height="191">
-            <lvc:CartesianChart Grid.Row="2" Series="{Binding WaterLevelData}" Margin="0,60,0,0">
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator Step="1"/>
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
-        </Border>
 
-        <!--전류-->
-        <Label Content="4. Voltage" Grid.Row="3" FontSize="16"/>
-        <Label Content="전류" Grid.Row="3" FontSize="32" Margin="10,20,0,0"/>
-        <Border Grid.Row="3" Width="996" Height="191">
-            <lvc:CartesianChart Grid.Row="3" Series="{Binding WaterLevelData}" Margin="0,60,0,0">
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator Step="1"/>
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
-        </Border>
 
-        <!--전압-->
-        <Label Content="5. Current" Grid.Row="4" FontSize="16"/>
-        <Label Content="전류" Grid.Row="4" FontSize="32" Margin="10,20,0,0"/>
-        <Border Grid.Row="4" Width="996" Height="191">
-            <lvc:CartesianChart Grid.Row="4" Series="{Binding WaterLevelData}" Margin="0,60,0,0">
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                        <lvc:Axis.Separator>
-                            <lvc:Separator Step="1"/>
-                        </lvc:Axis.Separator>
-                    </lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Percent(%)" LabelFormatter="{Binding YWaterLevel}"/>
-                </lvc:CartesianChart.AxisY>
-            </lvc:CartesianChart>
-        </Border>
+            <!--점도-->
+            <StackPanel Grid.Row="1" Margin="5">
+                <Label Content="2. Viscosity" FontSize="16"/>
+                <Label Content="점도" FontSize="32"/>
+                <Border MinHeight="190">
+                    <lvc:CartesianChart Series="{Binding ViscosityData}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Viscosity"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Border>
+            </StackPanel>
 
-    </Grid>
+
+            <!--pH-->
+            <StackPanel Grid.Row="2" Margin="5">
+                <Label Content="3. pH" FontSize="16"/>
+                <Label Content="pH" FontSize="32" />
+                <Border MinHeight="190" >
+                    <lvc:CartesianChart Series="{Binding pHData}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="pH"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Border>
+            </StackPanel>
+
+
+            <!--전류-->
+            <StackPanel Grid.Row="3" Margin="5">
+                <Label Content="4. Current" FontSize="16"/>
+                <Label Content="전류" FontSize="32" />
+                <Border MinHeight="190">
+                    <lvc:CartesianChart Series="{Binding CurrentData}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Current"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Border>
+            </StackPanel>
+
+
+            <!--전압-->
+            <StackPanel Grid.Row="4" Margin="5">
+                <Label Content="5. Voltage" FontSize="16"/>
+                <Label Content="전압" FontSize="32" />
+                <Border MinHeight="190">
+                    <lvc:CartesianChart Series="{Binding VoltageData}" >
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Voltage"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

@@ -3,10 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" >
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--온도-->
+        <StackPanel Grid.Row="0" Margin="5">
+            <Label Content="1. Temperature" FontSize="16" />
+            <Label Content="온도" FontSize="32" />
+            <Border  MinHeight="190">
+                <lvc:CartesianChart Series="{Binding TemperatureData}" >
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}">
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Temperature"/>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </Border>
+        </StackPanel>
+        
+        <!--습도-->
+        <StackPanel Grid.Row="1" Margin="5">
+            <Label Content="2. Humidity" FontSize="16"/>
+            <Label Content="습도" FontSize="32"/>
+            <Border MinHeight="190">
+                <lvc:CartesianChart Series="{Binding HumidityData}">
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Humidity"/>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </Border>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

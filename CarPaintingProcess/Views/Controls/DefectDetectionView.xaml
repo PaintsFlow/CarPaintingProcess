@@ -4,9 +4,69 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+         
+        <!--카메라 화면-->
+        
+        <!--이미지 업로드-->
+        <StackPanel Grid.Row="0" >
+            <Label Content="검사 이미지" FontWeight="Bold" Grid.Row="0" FontSize="24"/>
+            <Label x:Name="info" Content="검사할 이미지를 업로드 해주세요." Height="150" Margin="0,70,0,0" HorizontalAlignment="Center" FontSize="20" Visibility="{Binding IsImageLoaded, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            <Image x:Name="DetectImage" MaxWidth="1500" MaxHeight="400" Source="{Binding DetectImageSource}"></Image>
+        </StackPanel>
+        <Button Name="ImageButton" Grid.Row="1" Content="이미지 업로드" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="5" Command="{Binding LoadImageCommand}" Background="#A1824A">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Name="DetectionStartButton" Grid.Row="1" Content="검사 시작" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="5,5,150,5" Background="#A1824A">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        
+        <!--검사 결과-->
+        <Border Grid.Row="2" Background="#F5F0E5" CornerRadius="15" Margin="5">
+            <StackPanel>
+                <Label Content="검사 결과" FontWeight="Bold" Grid.Row="0" FontSize="24" Margin="10"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!--감지된 색상-->
+                    <Label Grid.Column="0" Content="● 감지된 색상" Margin="20,0,0,0" FontSize="18" FontWeight="Black"/>
+                    <Image x:Name="DetectResultImage" Source="{Binding DetectResultImageSource}"></Image>
+                    <TextBlock Name="DetectResultRGBTextBlock" Grid.Column="0" Text="{Binding DetectResultRGBText}" VerticalAlignment="Top" HorizontalAlignment="center" Margin="0,300,0,0" FontSize="24" FontWeight="Bold"/>
+
+                    <!--주문 색상-->
+                    <Label Grid.Column="1" Content="● 주문 색상" Margin="20,0,0,0" FontSize="18" FontWeight="Black"/>
+                    <Image x:Name="OrderColorImage" Source="{Binding OrderColorImageSource}"></Image>
+                    <TextBlock x:Name="OrderColorRGBTextBlock" Grid.Column="1" Text="{Binding OrderColorRGBText}" VerticalAlignment="Top" HorizontalAlignment="center" Margin="0,300,0,0" FontSize="24" FontWeight="Bold"/>
+
+                    <!--감지 결과-->
+                    <Label Grid.Column="2" Content="결과 : " Margin="20,0,0,0" FontSize="18" FontWeight="Black" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="ResultTextBlock" Grid.Column="2" Text="{Binding ResultText}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="18" FontWeight="Heavy" Margin="0,5,0,0"/>
+                    <Label Grid.Column="2" Content="사유 : " Margin="20,0,0,0" FontSize="18" FontWeight="Black" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="ResultReasonTextBlock" Grid.Column="2" Text="{Binding ResultReasonText}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" FontWeight="Heavy" Margin="80,5,0,0" Width="160"/>
+
+                </Grid>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
