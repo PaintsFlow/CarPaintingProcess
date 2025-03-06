@@ -10,6 +10,7 @@
     <UserControl.Resources>
         <conv:TupleConverter x:Key="TupleConverter"/>
     </UserControl.Resources>
+    
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="5">
             <!--스프레이건 압력-->
@@ -22,7 +23,7 @@
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="AirSpray Pressure"/>
+                            <lvc:Axis Title="AirSpray Pressure"  LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -73,7 +74,7 @@
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Paint Flow"/>
+                            <lvc:Axis Title="Paint Flow"  LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>

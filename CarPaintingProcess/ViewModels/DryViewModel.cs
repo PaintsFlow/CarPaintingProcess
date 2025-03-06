@@ -12,6 +12,7 @@ using System.Reflection;
 using ImTools;
 using System.Windows.Threading;
 using LiveCharts.SeriesAlgorithms;
+using System.Windows.Media.Converters;
 
 namespace CarPaintingProcess.ViewModels
 {
@@ -39,6 +40,7 @@ namespace CarPaintingProcess.ViewModels
             set { SetProperty(ref _humidityData, value); }
         }
         public Func<double, string> TimeFormatter { get; set; }
+        public Func<double, string> YAxisFormatter { get; set; }
 
         public DryViewModel()
         {
@@ -50,6 +52,7 @@ namespace CarPaintingProcess.ViewModels
             HumidityData = InitializeChartSeries("Humidity");
 
             TimeFormatter = value => DateTime.FromOADate(value).ToString("HH:mm:ss");
+            YAxisFormatter = value => value.ToString("0.000");
 
         }
 
@@ -60,7 +63,8 @@ namespace CarPaintingProcess.ViewModels
                 new LineSeries
                 {
                     Title = title,
-                    Values = new ChartValues<ObservablePoint>()
+                    Values = new ChartValues<ObservablePoint>(),
+                    LabelPoint = point => point.Y.ToString("0.000")
                 }
             };
         }
@@ -79,6 +83,9 @@ namespace CarPaintingProcess.ViewModels
             {
                 if (!double.TryParse(value[i + 6], out parsedValues[i]))
                     parsedValues[i] = 0; // 변환 실패 시 기본값
+
+                // 소수점 3자리 반올림
+                parsedValues[i] = Math.Round(parsedValues[i], 3);
             }
             var time = Convert.ToDateTime(value[0]);
             double timeIndex = time.ToOADate(); // X축 값을 OLE 날짜 형식으로 변환

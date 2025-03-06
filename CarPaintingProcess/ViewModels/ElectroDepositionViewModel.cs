@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Reflection;
 using ImTools;
 using System.Windows.Threading;
+using System.Windows;
 
 namespace CarPaintingProcess.ViewModels
 {
@@ -60,6 +61,8 @@ namespace CarPaintingProcess.ViewModels
             set { SetProperty(ref _voltageData, value); }
         }
         public Func<double, string> TimeFormatter { get; set; }
+        public Func<double, string> YAxisFormatter { get; set; }
+
 
         public ElectroDepositionViewModel()
         {
@@ -72,7 +75,9 @@ namespace CarPaintingProcess.ViewModels
             pHData = InitializeChartSeries("pH");
             CurrentData = InitializeChartSeries("Current");
             VoltageData = InitializeChartSeries("Voltage");
+
             TimeFormatter = value => DateTime.FromOADate(value).ToString("HH:mm:ss");
+            YAxisFormatter = value => value.ToString("0.000");
 
         }
 
@@ -83,7 +88,9 @@ namespace CarPaintingProcess.ViewModels
                 new LineSeries
                 {
                     Title = title,
-                    Values = new ChartValues<ObservablePoint>()
+                    Values = new ChartValues<ObservablePoint>(),
+                    LabelPoint = point => point.Y.ToString("0.000")
+
                 }
             };
         }
@@ -102,13 +109,16 @@ namespace CarPaintingProcess.ViewModels
             {
                 if (!double.TryParse(value[i + 1], out parsedValues[i]))
                     parsedValues[i] = 0; // 변환 실패 시 기본값
+                
+                // 소수점 3자리 반올림
+                parsedValues[i] = Math.Round(parsedValues[i], 3);
             }
 
             var time = Convert.ToDateTime(value[0]);
             double timeIndex = time.ToOADate(); // X축 값을 OLE 날짜 형식으로 변환
 
             // LiveCharts 데이터 추가
-            App.Current.Dispatcher.BeginInvoke(new Action(() =>
+            App.Current?.Dispatcher?.BeginInvoke(new Action(() =>
             {
                 UpdateChartData(WaterlevelData, parsedValues[0], timeIndex);
                 UpdateChartData(ViscosityData, parsedValues[1], timeIndex);
