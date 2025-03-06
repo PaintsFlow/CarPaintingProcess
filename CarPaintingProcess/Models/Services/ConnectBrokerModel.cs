@@ -78,15 +78,12 @@ namespace CarPaintingProcess.Models.Services
                     MessageBox.Show("❌ 채널이 생성되지 않았습니다.");
                     return;
                 }
-
+                //QueueDeclareOk queueDeclareResult = await this.channel.QueueDeclareAsync();
+                //string queueName = queueDeclareResult.QueueName;
+                //await this.channel.QueueBindAsync(queue: queueName, exchange: (string)exchangeName, routingKey: string.Empty);
                 await Task.Run(() => channel.ExchangeDeclareAsync(exchange: "logs", type: ExchangeType.Fanout));
                 // declare a server-named queue
-                QueueDeclareOk queueDeclareResult = await channel.QueueDeclareAsync(queue: "persistentQueue",
-                    durable: true,        // 서버가 재시작되어도 유지
-                    exclusive: false,     // 여러 연결에서 사용 가능
-                    autoDelete: false,    // 사용하지 않아도 자동 삭제되지 않음
-                    arguments: null);
-
+                QueueDeclareOk queueDeclareResult = await channel.QueueDeclareAsync();
                 string queueName = queueDeclareResult.QueueName;
                 await channel.QueueBindAsync(queue: queueName, exchange: "logs", routingKey: string.Empty);
 
