@@ -34,6 +34,10 @@ namespace CarPaintingProcess
             // Prism에서 제공하는 DI 컨테이너로부터 RegionManager 가져오기
             var regionManager = Container.Resolve<IRegionManager>();
 
+            regionManager.RequestNavigate("MainRegion", "ElectroDepositionView");
+            regionManager.RequestNavigate("MainRegion", "DryView");
+            regionManager.RequestNavigate("MainRegion", "PaintingView");
+
             //초기 화면
             regionManager.RegisterViewWithRegion("SideBarRegion", typeof(Views.Controls.SideBarView));
             regionManager.RegisterViewWithRegion("AlarmRegion", typeof(MiniAlarmView));
