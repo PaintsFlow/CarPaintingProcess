@@ -55,7 +55,7 @@ namespace CarPaintingProcess.Models.Services
         {
             if (await ConnectBroker())
             {
-                await Consume();      // 기본 logs 익스체인지 소비
+                await Consume();      // logs 익스체인지 소비
                 await ConsumeAlarm(); // 알람 익스체인지 소비 (파셜 클래스에서 실행)
             }
             else
@@ -97,6 +97,35 @@ namespace CarPaintingProcess.Models.Services
             catch (Exception ex)
             {
                 MessageBox.Show($"🚨 메시지 수신 실패: {ex.Message}");
+            }
+        }
+
+        public async void Producerfunc(string message)
+        {
+            if (connection == null || !connection.IsOpen)
+            {
+                if (!await ConnectBroker())
+                {
+                    return;
+                }
+            }
+            await Produce(message);
+        }
+
+        public async Task Produce(string message)
+        {
+            try
+            {
+                if (channel != null)
+                {
+                    var body = Encoding.UTF8.GetBytes(message);
+                    await channel.BasicPublishAsync(exchange: "control", routingKey: string.Empty, body: body);
+                    Console.WriteLine($"Sent : {message}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"🚨 메시지 게시 오류: {ex.Message}");
             }
         }
     }
