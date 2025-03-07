@@ -26,7 +26,7 @@
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Water Level"/>
+                            <lvc:Axis Title="Water Level" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -44,7 +44,7 @@
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Viscosity"/>
+                            <lvc:Axis Title="Viscosity" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -61,7 +61,7 @@
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="pH"/>
+                            <lvc:Axis Title="pH" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -78,7 +78,7 @@
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Current"/>
+                            <lvc:Axis Title="Current" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -95,7 +95,7 @@
                             <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Voltage"/>
+                            <lvc:Axis Title="Voltage" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>

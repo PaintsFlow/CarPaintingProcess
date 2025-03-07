@@ -7,6 +7,8 @@ using System;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System.Windows.Threading;
+using System.Windows.Input;
+using Prism.Commands;
 
 namespace CarPaintingProcess.ViewModels
 {
@@ -35,6 +37,9 @@ namespace CarPaintingProcess.ViewModels
         }
 
         public Func<double,string> TimeFormatter { get; set; }
+        public Func<double, string> YAxisFormatter { get; set; }
+
+        public DelegateCommand<Tuple<string,string>> UserControlCommand { get; }
 
         public PaintingViewModel()
         {
@@ -44,7 +49,39 @@ namespace CarPaintingProcess.ViewModels
 
             PaintflowData = InitializeChartSeries("Paint Flow");
             AirsprayPressureData = InitializeChartSeries("AirSpray Pressure");
+
             TimeFormatter = value => DateTime.FromOADate(value).ToString("HH:mm:ss");
+            YAxisFormatter = value => value.ToString("0.000");
+
+            UserControlCommand = new DelegateCommand<Tuple<string, string>>(ExecuteUserControlCommand);
+        }
+
+        private void ExecuteUserControlCommand(Tuple<string, string> parameter)
+        {
+            if (parameter == null) return;
+
+            string message;
+            string machine = parameter.Item1; // airspray(0) or paintflow(1)
+            string mode = parameter.Item2;  // on(1) or off(0)
+
+            if (machine == "Airspray")
+            {
+                if (mode == "on")
+                {
+                    message = "0, 1";
+                }
+                else message = "0, 0";
+            }
+            else
+            {
+                if (mode == "on")
+                {
+                    message = "1, 1";
+                }
+                else message = "1, 0";
+            }
+
+            _connectBrokerModel.Producerfunc(message);
         }
 
         private SeriesCollection InitializeChartSeries(string title)
@@ -54,7 +91,9 @@ namespace CarPaintingProcess.ViewModels
                 new LineSeries
                 {
                     Title = title,
-                    Values = new ChartValues<ObservablePoint>()
+                    Values = new ChartValues<ObservablePoint>(),
+                    LabelPoint = point => point.Y.ToString("0.000")
+
                 }
             };
         }
@@ -70,10 +109,13 @@ namespace CarPaintingProcess.ViewModels
 
             // 데이터 파싱
             double[] parsedValues = new double[2]; // 첫 번째 데이터는 time이므로 제외
-            for (int i = 0; i < 2; i++) // 인덱스 수정 (0부터 4까지)
+            for (int i = 0; i < 2; i++)
             {
                 if (!double.TryParse(value[i+8], out parsedValues[i]))
                     parsedValues[i] = 0; // 변환 실패 시 기본값
+
+                // 소수점 3자리 반올림
+                parsedValues[i] = Math.Round(parsedValues[i], 3);
             }
 
             var time = Convert.ToDateTime(value[0]);
@@ -108,5 +150,7 @@ namespace CarPaintingProcess.ViewModels
                 values.RemoveAt(0);
             }
         }
+
+        //private void 
     }
 }

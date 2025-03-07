@@ -23,7 +23,7 @@
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Temperature"/>
+                        <lvc:Axis Title="Temperature" LabelFormatter="{Binding YAxisFormatter}"/>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
             </Border>
@@ -39,7 +39,7 @@
                         <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="Humidity"/>
+                        <lvc:Axis Title="Humidity" LabelFormatter="{Binding YAxisFormatter}"/>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
             </Border>
