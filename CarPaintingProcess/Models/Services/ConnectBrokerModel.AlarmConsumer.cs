@@ -9,6 +9,9 @@ namespace CarPaintingProcess.Models.Services
 {
     public partial class ConnectBrokerModel
     {
+        // ------------------------------------------------------
+        // 추가: 알람 익스체인지("alarm")를 소비하는 메서드
+        // ------------------------------------------------------
         private async Task ConsumeAlarm()
         {
             try
@@ -18,11 +21,14 @@ namespace CarPaintingProcess.Models.Services
                     MessageBox.Show("❌ 채널이 생성되지 않았습니다. (alarm)");
                     return;
                 }
-
+                // alarm 익스체인지 선언
                 await Task.Run(() => channel.ExchangeDeclareAsync(exchange: "alarm", type: ExchangeType.Fanout));
+
+                // 서버-이름 방식 큐 선언
                 QueueDeclareOk queueDeclareResult = await channel.QueueDeclareAsync();
                 string alarmQueueName = queueDeclareResult.QueueName;
 
+                // 바인딩
                 await channel.QueueBindAsync(queue: alarmQueueName, exchange: "alarm", routingKey: string.Empty);
 
                 Console.WriteLine(" [*] Waiting for alarm messages...");
@@ -45,10 +51,13 @@ namespace CarPaintingProcess.Models.Services
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"🚨 알람 메시지 수신 실패: {ex.Message}");
+                MessageBox.Show($"🚨 알람 메시지 수신 실패 : {ex.Message}");
             }
         }
 
+        // ------------------------------------------------------
+        // 추가: 알람 메시지를 파싱하고 AlarmService에 등록하는 부분
+        // ------------------------------------------------------
         private void ParseAndInsertAlarm(string alarmMessage)
         {
             try
@@ -96,6 +105,9 @@ namespace CarPaintingProcess.Models.Services
             }
         }
 
+        // ------------------------------------------------------
+        // 센서명->카테고리 분류 (예시)
+        // ------------------------------------------------------
         private string GetAlarmCategory(string sensorName)
         {
             if (sensorName.Contains("수위") || sensorName.Contains("점도") || sensorName.Contains("PH"))
