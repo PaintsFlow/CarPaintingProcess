@@ -35,22 +35,9 @@ namespace CarPaintingProcess.Models.Services
             }
             return staticDBlink;
         }
-        // -----------
-        //private void setDBLink()
-        //{
-        //    string relativePath = @".\Models\DB.txt";
-        //    string fullPath = Path.Combine(Environment.CurrentDirectory, relativePath);
-        //    StreamReader sr = new StreamReader(fullPath);
-        //    string[] Data = sr.ReadToEnd().Split("\n");
-        //    _server = Data[0];
-        //    _port = Data[1];
-        //    _dbName = Data[2];
-        //    _dbId = Data[3];
-        //    _dbPw = Data[4];
-        //}
+        
         public void Connect()
         {
-            //this.setDBLink();
             string myConnection = "Server=" + _server + ";Port=" + _port + ";Database=" + _dbName + ";User Id = " + _dbId + ";Password = " + _dbPw + ";CharSet=utf8;";
             try
             {

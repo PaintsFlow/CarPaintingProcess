@@ -5,7 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:conv ="clr-namespace:CarPaintingProcess.Views.Converters"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <conv:TupleConverter x:Key="TupleConverter"/>
+    </UserControl.Resources>
+    
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="5">
             <!--스프레이건 압력-->
@@ -13,16 +18,15 @@
                 <Label Content="1. AirSpray Pressure" FontSize="16" />
                 <Label Content="스프레이건 압력" FontSize="32"/>
                 <Border MinHeight="190">
-                    <lvc:CartesianChart Series="{Binding AirSprayPressureData}">
+                    <lvc:CartesianChart Series="{Binding AirsprayPressureData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                                <lvc:Axis.Separator>
-                                    <lvc:Separator Step="1"/>
-                                </lvc:Axis.Separator>
-                            </lvc:Axis>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="ml/min" LabelFormatter="{Binding YAirSprayPressure}"/>
+                            <lvc:Axis Title="AirSpray Pressure"  LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -33,9 +37,27 @@
             <Border Grid.Row="1" Height="170" Background="#F5F0E5" CornerRadius="15">
                 <Grid>
                     <Label Content="사용자 제어" FontSize="16" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Label Content="● 스프레이건 압력 : " FontSize="16" Margin="0,0,280,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBox x:Name="AirSprayPressureUserValue" Width="181" Margin="0,0,95,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20"/>
-                    <Button x:Name="AirSprayPressureButton" Content="입력" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Width="76" Height="35" Background="#A1824A">
+                    <Label Content="● 스프레이건 압력 제어: " FontSize="16" Margin="0,0,180,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <Button x:Name="AirSprayPressureOnButton" Content="On" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,100,0" Width="76" Height="35" Background="#A1824A" Command="{Binding UserControlCommand}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource TupleConverter}">
+                                <Binding Source="Airspray"/>
+                                <Binding Source="on"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button x:Name="AirSprayPressureOffButton" Content="Off" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Width="76" Height="35" Background="#A1824A" Command="{Binding UserControlCommand}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource TupleConverter}">
+                                <Binding Source="Airspray"/>
+                                <Binding Source="off"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
@@ -50,16 +72,15 @@
                 <Label Content="2. Paint Flow" FontSize="16"/>
                 <Label Content="페인트 유량" FontSize="32" />
                 <Border MinHeight="190">
-                    <lvc:CartesianChart Series="{Binding PaintFlowData}">
+                    <lvc:CartesianChart Series="{Binding PaintflowData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                                <lvc:Axis.Separator>
-                                    <lvc:Separator Step="1"/>
-                                </lvc:Axis.Separator>
-                            </lvc:Axis>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="bar" LabelFormatter="{Binding YPaintFlow}"/>
+                            <lvc:Axis Title="Paint Flow"  LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -70,9 +91,27 @@
             <Border Grid.Row="3" Height="170" Background="#F5F0E5" CornerRadius="15">
                 <Grid>
                     <Label Content="사용자 제어" FontSize="16" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                    <Label Content="● 페인트 유량 : " FontSize="16" Margin="0,0,280,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBox x:Name="PaintFlowUserValue" Width="181" Height="35" Margin="0,0,95,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <Button x:Name="PaintFlowButton" Content="입력" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Width="76" Height="35" Background="#A1824A">
+                    <Label Content="● 페인트 유량 : " FontSize="16" Margin="0,0,180,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <Button x:Name="PaintFlowOnButton" Content="On" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,100,0" Width="76" Height="35" Background="#A1824A" Command="{Binding UserControlCommand}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource TupleConverter}">
+                                <Binding Source="Paintflow"/>
+                                <Binding Source="on"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="20"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button x:Name="PaintFlowOffButton" Content="Off" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Width="76" Height="35" Background="#A1824A" Command="{Binding UserControlCommand}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource TupleConverter}">
+                                <Binding Source="Paintflow"/>
+                                <Binding Source="off"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>

@@ -28,7 +28,6 @@ namespace CarPaintingProcess.Views.Controls
         public DefectDetectionView()
         {
             InitializeComponent();
-            DataContext = new DefectDetectionViewModel();
         }
     }
 }

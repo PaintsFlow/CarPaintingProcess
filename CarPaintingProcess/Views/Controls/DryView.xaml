@@ -18,15 +18,15 @@
             <Label Content="온도" FontSize="32" />
             <Border  MinHeight="190">
                 <lvc:CartesianChart Series="{Binding TemperatureData}" >
+                    <lvc:CartesianChart.DataTooltip>
+                        <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                    </lvc:CartesianChart.DataTooltip>
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator Step="1"/>
-                            </lvc:Axis.Separator>
+                        <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}">
                         </lvc:Axis>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="°C" LabelFormatter="{Binding YTemperature}"/>
+                        <lvc:Axis Title="Temperature" LabelFormatter="{Binding YAxisFormatter}"/>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
             </Border>
@@ -38,15 +38,14 @@
             <Label Content="습도" FontSize="32"/>
             <Border MinHeight="190">
                 <lvc:CartesianChart Series="{Binding HumidityData}">
+                    <lvc:CartesianChart.DataTooltip>
+                        <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                    </lvc:CartesianChart.DataTooltip>
                     <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                            <lvc:Axis.Separator>
-                                <lvc:Separator Step="1"/>
-                            </lvc:Axis.Separator>
-                        </lvc:Axis>
+                        <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                     </lvc:CartesianChart.AxisX>
                     <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="%" LabelFormatter="{Binding YHumidity}"/>
+                        <lvc:Axis Title="Humidity" LabelFormatter="{Binding YAxisFormatter}"/>
                     </lvc:CartesianChart.AxisY>
                 </lvc:CartesianChart>
             </Border>

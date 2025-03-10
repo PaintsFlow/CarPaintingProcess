@@ -44,14 +44,14 @@
 
     <Grid Background="White">
         <StackPanel Margin="10">
-            <Image Source="../img/PaintFlow_Logo.png"
+            <Image Source="../../img/PaintFlow_Logo.png"
                    Width="200"
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20" />
 
             <Button Style="{StaticResource HoverButtonStyle}"
                     Command="{Binding NavigateCommand}"
-                    CommandParameter="ProcessAView"
+                    CommandParameter="ElectroDepositionView"
                     Margin="0,0,0,10">
                 <Grid>
                     <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
@@ -65,7 +65,7 @@
 
             <Button Style="{StaticResource HoverButtonStyle}"
                     Command="{Binding NavigateCommand}"
-                    CommandParameter="ProcessBView"
+                    CommandParameter="DryView"
                     Margin="0,0,0,10">
                 <Grid>
                     <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
@@ -79,7 +79,7 @@
 
             <Button Style="{StaticResource HoverButtonStyle}"
                     Command="{Binding NavigateCommand}"
-                    CommandParameter="ProcessCView"
+                    CommandParameter="PaintingView"
                     Margin="0,0,0,10">
                 <Grid>
                     <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
@@ -93,7 +93,7 @@
 
             <Button Style="{StaticResource HoverButtonStyle}"
                     Command="{Binding NavigateCommand}"
-                    CommandParameter="ProcessDView"
+                    CommandParameter="DefectDetectionView"
                     Margin="0,0,0,10">
                 <Grid>
                     <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"
@@ -121,7 +121,7 @@
 
             <Button Style="{StaticResource HoverButtonStyle}"
                     Command="{Binding NavigateCommand}"
-                    CommandParameter="ProcessEView"
+                    CommandParameter="SearchView"
                     Margin="0,0,0,10">
                 <Grid>
                     <Border Width="30" Height="30" CornerRadius="15" Background="#41302B"

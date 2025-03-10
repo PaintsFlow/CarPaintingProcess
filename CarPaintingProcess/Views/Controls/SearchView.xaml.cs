@@ -24,7 +24,6 @@ namespace CarPaintingProcess.Views.Controls
         public SearchView()
         {
             InitializeComponent();
-            DataContext = new SearchViewModel();
         }
     }
 }

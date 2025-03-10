@@ -26,28 +26,6 @@ namespace CarPaintingProcess.ViewModels
             set { SetProperty(ref _str, value); }
         }
 
-        // datagrid 리스트 (각각의 표를 저장할 datagrid)
-        //private DataGrid _electroDepositionTable;
-        //public DataGrid ElectroDepositionTable
-        //{
-        //    get { return _electroDepositionTable; }
-        //    set { SetProperty(ref _electroDepositionTable, value); }
-        //}
-
-        //private DataGrid _dryTable;
-        //public DataGrid DryTable
-        //{
-        //    get { return _dryTable; }
-        //    set { SetProperty(ref _dryTable, value); }
-        //}
-
-        //private DataGrid _paintingTable;
-        //private DataGrid PaintingTable
-        //{
-        //    get { return _paintingTable; }
-        //    set { SetProperty(ref _paintingTable, value); }
-        //}
-
         // 선택된 날짜
         private DateTime? _selectedDate;
         public DateTime? SelectedDate

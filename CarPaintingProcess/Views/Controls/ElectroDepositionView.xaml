@@ -21,16 +21,15 @@
                 <Label Content="1. Water Level" FontSize="16" />
                 <Label Content="수위" FontSize="32" />
                 <Border MinHeight="190">
-                    <lvc:CartesianChart Series="{Binding WaterLevelData}" >
+                    <lvc:CartesianChart Series="{Binding WaterlevelData}" >
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                                <lvc:Axis.Separator>
-                                    <lvc:Separator Step="1"/>
-                                </lvc:Axis.Separator>
-                            </lvc:Axis>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="%" LabelFormatter="{Binding YWaterLevel}"/>
+                            <lvc:Axis Title="Water Level" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -44,15 +43,14 @@
                 <Label Content="점도" FontSize="32"/>
                 <Border MinHeight="190">
                     <lvc:CartesianChart Series="{Binding ViscosityData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                                <lvc:Axis.Separator>
-                                    <lvc:Separator Step="1"/>
-                                </lvc:Axis.Separator>
-                            </lvc:Axis>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="cP" LabelFormatter="{Binding YViscosity}"/>
+                            <lvc:Axis Title="Viscosity" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -65,15 +63,14 @@
                 <Label Content="pH" FontSize="32" />
                 <Border MinHeight="190" >
                     <lvc:CartesianChart Series="{Binding pHData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                                <lvc:Axis.Separator>
-                                    <lvc:Separator Step="1"/>
-                                </lvc:Axis.Separator>
-                            </lvc:Axis>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="pH" LabelFormatter="{Binding YpH}"/>
+                            <lvc:Axis Title="pH" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -86,15 +83,14 @@
                 <Label Content="전류" FontSize="32" />
                 <Border MinHeight="190">
                     <lvc:CartesianChart Series="{Binding CurrentData}">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                                <lvc:Axis.Separator>
-                                    <lvc:Separator Step="1"/>
-                                </lvc:Axis.Separator>
-                            </lvc:Axis>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="A" LabelFormatter="{Binding YCurrent}"/>
+                            <lvc:Axis Title="Current" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
@@ -107,15 +103,14 @@
                 <Label Content="전압" FontSize="32" />
                 <Border MinHeight="190">
                     <lvc:CartesianChart Series="{Binding VoltageData}" >
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip SelectionMode="OnlySender"/>
+                        </lvc:CartesianChart.DataTooltip>
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Time" LabelFormatter="{Binding XTime}">
-                                <lvc:Axis.Separator>
-                                    <lvc:Separator Step="1"/>
-                                </lvc:Axis.Separator>
-                            </lvc:Axis>
+                            <lvc:Axis Title="Time" LabelFormatter="{Binding TimeFormatter}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="V" LabelFormatter="{Binding YVoltage}"/>
+                            <lvc:Axis Title="Voltage" LabelFormatter="{Binding YAxisFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Border>
