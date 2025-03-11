@@ -2,25 +2,28 @@
 using Prism.Commands;
 using Prism.Services.Dialogs;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using Prism.Regions;
 
 public class AlarmViewModel : BindableBase
 {
     private readonly IDialogService _dialogService;
+    private readonly IRegionManager _regionManager;
 
     public ObservableCollection<AlarmItem> HadoAlarms => AlarmService.Instance.AlarmsByCategory["Hado"];
     public ObservableCollection<AlarmItem> GunjyoAlarms => AlarmService.Instance.AlarmsByCategory["Gunjyo"];
     public ObservableCollection<AlarmItem> DojangAlarms => AlarmService.Instance.AlarmsByCategory["Dojang"];
 
     public DelegateCommand<AlarmItem> DeleteAlarmCommand { get; }
-    public DelegateCommand ShowControlCommand { get; }
+    public DelegateCommand<string> NavigateCommand { get; private set; }
 
-    public AlarmViewModel(IDialogService dialogService)
+    public AlarmViewModel(IDialogService dialogService, IRegionManager regionManager)
     {
         _dialogService = dialogService;
+        _regionManager = regionManager;
         DeleteAlarmCommand = new DelegateCommand<AlarmItem>(DeleteAlarm);
-        
-        // 🔥 "제어 하기" 버튼을 눌렀을 때 `ControlDialog`를 띄움
-        ShowControlCommand = new DelegateCommand(ShowControl);
+
+        NavigateCommand = new DelegateCommand<string>(Navigate);
     }
 
     private void DeleteAlarm(AlarmItem alarm)
@@ -42,15 +45,11 @@ public class AlarmViewModel : BindableBase
         RaisePropertyChanged(nameof(DojangAlarms));
     }
 
-    private void ShowControl()
+    private void Navigate(string viewName)
     {
-        // 🔥 `ControlDialog`를 띄움
-        _dialogService.ShowDialog("ControlDialog", null, callback =>
+        if (!string.IsNullOrEmpty(viewName))
         {
-            if (callback.Result == ButtonResult.OK)
-            {
-                // 팝업에서 "확인"을 눌렀을 때 처리할 로직
-            }
-        });
+            _regionManager.RequestNavigate("MainRegion", viewName);
+        }
     }
 }

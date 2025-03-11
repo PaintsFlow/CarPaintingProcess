@@ -52,11 +52,11 @@
                                 HorizontalAlignment="Stretch">
 
                             <!-- 로드 시 점멸 애니메이션 실행 -->
-                            <Border.Triggers>
+                            <!--<Border.Triggers>
                                 <EventTrigger RoutedEvent="Loaded">
                                     <BeginStoryboard Storyboard="{StaticResource FlashStoryboard}" />
                                 </EventTrigger>
-                            </Border.Triggers>
+                            </Border.Triggers>-->
 
                             <!-- 한 줄 레이아웃 (메시지, 값, 발생시각, 삭제버튼) -->
                             <Grid HorizontalAlignment="Stretch">
@@ -68,16 +68,16 @@
 
                                 <!-- 메시지/값 -->
                                 <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
-                                    <TextBlock Text="경고: " FontSize="14" Foreground="Black"/>
-                                    <TextBlock Text="{Binding Message}" FontSize="14" Foreground="Black"/>
-                                    <TextBlock Text="    값: " FontSize="14" Foreground="Black" Margin="20,0,0,0"/>
-                                    <TextBlock Text="{Binding Value}" FontSize="14" Foreground="black"/>
+                                    <TextBlock Text="경고: " FontSize="17" Foreground="Black"/>
+                                    <TextBlock Text="{Binding Message}" FontSize="17" Foreground="Black"/>
+                                    <TextBlock Text="센서값: " FontSize="17" Foreground="Black" Margin="20,0,0,0"/>
+                                    <TextBlock Text="{Binding Value}" FontSize="17" Foreground="black"/>
                                 </StackPanel>
 
                                 <!-- 발생시각 -->
                                 <TextBlock Grid.Column="1"
                                            Text="{Binding Timestamp, StringFormat='발생시각: {0:HH:mm:ss}'}"
-                                           FontSize="12"
+                                           FontSize="17"
                                            Foreground="Black"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Right"
@@ -127,11 +127,11 @@
                                 HorizontalAlignment="Stretch">
 
                             <!-- 로드 시 점멸 애니메이션 실행 -->
-                            <Border.Triggers>
+                            <!--<Border.Triggers>
                                 <EventTrigger RoutedEvent="Loaded">
                                     <BeginStoryboard Storyboard="{StaticResource FlashStoryboard}" />
                                 </EventTrigger>
-                            </Border.Triggers>
+                            </Border.Triggers>-->
 
                             <!-- 한 줄 레이아웃 (메시지, 값, 발생시각, 삭제버튼) -->
                             <Grid HorizontalAlignment="Stretch">
@@ -143,16 +143,16 @@
 
                                 <!-- 메시지/값 -->
                                 <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
-                                    <TextBlock Text="경고: " FontSize="14" Foreground="Black"/>
-                                    <TextBlock Text="{Binding Message}" FontSize="14" Foreground="Black"/>
-                                    <TextBlock Text="    값: " FontSize="14" Foreground="Black" Margin="20,0,0,0"/>
-                                    <TextBlock Text="{Binding Value}" FontSize="14" Foreground="black"/>
+                                    <TextBlock Text="경고: " FontSize="17" Foreground="Black"/>
+                                    <TextBlock Text="{Binding Message}" FontSize="17" Foreground="Black"/>
+                                    <TextBlock Text="센서값: " FontSize="17" Foreground="Black" Margin="20,0,0,0"/>
+                                    <TextBlock Text="{Binding Value}" FontSize="17" Foreground="black"/>
                                 </StackPanel>
 
                                 <!-- 발생시각 -->
                                 <TextBlock Grid.Column="1"
                                            Text="{Binding Timestamp, StringFormat='발생시각: {0:HH:mm:ss}'}"
-                                           FontSize="12"
+                                           FontSize="17"
                                            Foreground="Black"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Right"
@@ -198,12 +198,13 @@
                            Margin="5,15,5,5"/>
 
                 <Button Content="제어 하기"
-        Command="{Binding ShowControlCommand}"
+        Command="{Binding NavigateCommand}"                             
+        CommandParameter="PaintingView"
         Background="#4B0082"
         Foreground="White"
         Padding="8,5"
         Margin="10"
-        HorizontalAlignment="Right" />
+        HorizontalAlignment="Right" Cursor="Hand" />
 
             </StackPanel>
 
@@ -226,11 +227,11 @@
                                 HorizontalAlignment="Stretch">
 
                             <!-- 로드 시 점멸 애니메이션 실행 -->
-                            <Border.Triggers>
+                            <!--<Border.Triggers>
                                 <EventTrigger RoutedEvent="Loaded">
                                     <BeginStoryboard Storyboard="{StaticResource FlashStoryboard}" />
                                 </EventTrigger>
-                            </Border.Triggers>
+                            </Border.Triggers>-->
 
                             <!-- 한 줄 레이아웃 (메시지, 값, 발생시각, 삭제버튼) -->
                             <Grid HorizontalAlignment="Stretch">
@@ -242,16 +243,16 @@
 
                                 <!-- 메시지/값 -->
                                 <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
-                                    <TextBlock Text="경고: " FontSize="14" Foreground="Black"/>
-                                    <TextBlock Text="{Binding Message}" FontSize="14" Foreground="Black"/>
-                                    <TextBlock Text="    값: " FontSize="14" Foreground="Black" Margin="20,0,0,0"/>
-                                    <TextBlock Text="{Binding Value}" FontSize="14" Foreground="black"/>
+                                    <TextBlock Text="경고: " FontSize="17" Foreground="Black"/>
+                                    <TextBlock Text="{Binding Message}" FontSize="17" Foreground="Black"/>
+                                    <TextBlock Text="센서값: " FontSize="17" Foreground="Black" Margin="20,0,0,0"/>
+                                    <TextBlock Text="{Binding Value}" FontSize="17" Foreground="black"/>
                                 </StackPanel>
 
                                 <!-- 발생시각 -->
                                 <TextBlock Grid.Column="1"
                                            Text="{Binding Timestamp, StringFormat='발생시각: {0:HH:mm:ss}'}"
-                                           FontSize="12"
+                                           FontSize="17"
                                            Foreground="Black"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Right"

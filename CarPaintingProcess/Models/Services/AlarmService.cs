@@ -35,7 +35,7 @@ public class AlarmService
             {
                 if ((DateTime.Now - lastReceivedTime).TotalSeconds < 180) // 3분 제한
                 {
-                    Console.WriteLine($"⏳ 알람 중복 방지: {alarm.SensorName} ({alarm.AlarmCode})");
+                    //Console.WriteLine($"⏳ 알람 중복 방지: {alarm.SensorName} ({alarm.AlarmCode})");
                     return;
                 }
             }
