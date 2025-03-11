@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarPaintingProcess.Views.Controls"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"            
              mc:Ignorable="d" >
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -30,7 +31,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Name="DetectionStartButton" Grid.Row="1" Content="검사 시작" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="5,5,150,5" Background="#A1824A">
+        <Button Name="DetectionStartButton" Grid.Row="1" Content="검사 시작" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="5,5,150,5" Background="#A1824A" Command="{Binding DetectColorCommand}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15"/>
@@ -42,28 +43,68 @@
         <Border Grid.Row="2" Background="#F5F0E5" CornerRadius="15" Margin="5">
             <StackPanel>
                 <Label Content="검사 결과" FontWeight="Bold" Grid.Row="0" FontSize="24" Margin="10"/>
+                <DockPanel Visibility="{Binding IsProductSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Label Content="- 차량 타입 : " Margin="20,0,0,10" FontWeight="SemiBold" FontSize="14"/>
+                    <ComboBox Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Background="White" 
+                              ItemsSource="{Binding ComboboxItem}" SelectedItem="{Binding SelectedComboboxItem, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding productName}"/>
+                                    <TextBlock Text="-"/>
+                                    <TextBlock Text="{Binding colorName}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </DockPanel>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.5*"/>
                         <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <!--감지된 색상-->
+                        <Label Content="● 감지된 색상" Margin="20,0,0,10" FontSize="18" FontWeight="Black"/>
+                        <!-- HSV 그래프 -->
+                        <lvc:CartesianChart MinHeight="200" Series="{Binding DetectedHsvChartData}">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="HSV" Labels="Hue,Saturation,Value"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Value" MinValue="0" MaxValue="255"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                        <DockPanel>
+                            <Rectangle Height="30" Width="30" HorizontalAlignment="Center" Margin="30,0,0,20" Fill="{Binding DetectedColor}"/>
+                            <!--HSV 값-->
+                            <TextBlock Text="{Binding DetectedHSVText}" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="24" FontWeight="Bold" Margin="10,0,0,0"/>
+                        </DockPanel> 
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <!--주문 색상-->
+                        <Label Content="● 주문 색상" Margin="20,0,0,10" FontSize="18" FontWeight="Black"/>
+                        <!-- HSV 그래프 -->
+                        <lvc:CartesianChart MinHeight="200" Series="{Binding OrderHsvChartData}">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="HSV" Labels="Hue,Saturation,Vallue"/>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Value" MinValue="0" MaxValue="255"/>
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                        <DockPanel>
+                            <Rectangle Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,20" Fill="{Binding OrderColor}"/>
+                            <TextBlock Text="{Binding OrderHSVText}" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="24" FontWeight="Bold" Margin="10,0,0,0"/>
+                        </DockPanel>
+                    </StackPanel>
                     
-                    <!--감지된 색상-->
-                    <Label Grid.Column="0" Content="● 감지된 색상" Margin="20,0,0,0" FontSize="18" FontWeight="Black"/>
-                    <Image x:Name="DetectResultImage" Source="{Binding DetectResultImageSource}"></Image>
-                    <TextBlock Name="DetectResultRGBTextBlock" Grid.Column="0" Text="{Binding DetectResultRGBText}" VerticalAlignment="Top" HorizontalAlignment="center" Margin="0,300,0,0" FontSize="24" FontWeight="Bold"/>
-
-                    <!--주문 색상-->
-                    <Label Grid.Column="1" Content="● 주문 색상" Margin="20,0,0,0" FontSize="18" FontWeight="Black"/>
-                    <Image x:Name="OrderColorImage" Source="{Binding OrderColorImageSource}"></Image>
-                    <TextBlock x:Name="OrderColorRGBTextBlock" Grid.Column="1" Text="{Binding OrderColorRGBText}" VerticalAlignment="Top" HorizontalAlignment="center" Margin="0,300,0,0" FontSize="24" FontWeight="Bold"/>
-
                     <!--감지 결과-->
                     <Label Grid.Column="2" Content="결과 : " Margin="20,0,0,0" FontSize="18" FontWeight="Black" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <TextBlock x:Name="ResultTextBlock" Grid.Column="2" Text="{Binding ResultText}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="18" FontWeight="Heavy" Margin="0,5,0,0"/>
-                    <Label Grid.Column="2" Content="사유 : " Margin="20,0,0,0" FontSize="18" FontWeight="Black" VerticalContentAlignment="Center" HorizontalAlignment="Left"/>
-                    <TextBlock x:Name="ResultReasonTextBlock" Grid.Column="2" Text="{Binding ResultReasonText}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" FontWeight="Heavy" Margin="80,5,0,0" Width="160"/>
 
                 </Grid>
             </StackPanel>
