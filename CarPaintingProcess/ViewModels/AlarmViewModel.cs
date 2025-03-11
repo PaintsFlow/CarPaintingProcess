@@ -1,25 +1,55 @@
 ﻿using Prism.Mvvm;
 using Prism.Commands;
-using System;
+using Prism.Services.Dialogs;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using Prism.Regions;
 
-namespace CarPaintingProcess.ViewModels
+public class AlarmViewModel : BindableBase
 {
-    public class AlarmViewModel : BindableBase
+    private readonly IDialogService _dialogService;
+    private readonly IRegionManager _regionManager;
+
+    public ObservableCollection<AlarmItem> HadoAlarms => AlarmService.Instance.AlarmsByCategory["Hado"];
+    public ObservableCollection<AlarmItem> GunjyoAlarms => AlarmService.Instance.AlarmsByCategory["Gunjyo"];
+    public ObservableCollection<AlarmItem> DojangAlarms => AlarmService.Instance.AlarmsByCategory["Dojang"];
+
+    public DelegateCommand<AlarmItem> DeleteAlarmCommand { get; }
+    public DelegateCommand<string> NavigateCommand { get; private set; }
+
+    public AlarmViewModel(IDialogService dialogService, IRegionManager regionManager)
     {
-        public ObservableCollection<AlarmItem> HadoAlarms => AlarmService.Instance.AlarmsByCategory["Hado"];
-        public ObservableCollection<AlarmItem> GunjyoAlarms => AlarmService.Instance.AlarmsByCategory["Gunjyo"];
-        public ObservableCollection<AlarmItem> DojangAlarms => AlarmService.Instance.AlarmsByCategory["Dojang"];
+        _dialogService = dialogService;
+        _regionManager = regionManager;
+        DeleteAlarmCommand = new DelegateCommand<AlarmItem>(DeleteAlarm);
 
-        public DelegateCommand<AlarmItem> DeleteHadoAlarmCommand { get; private set; }
-        public DelegateCommand<AlarmItem> DeleteGunjyoAlarmCommand { get; private set; }
-        public DelegateCommand<AlarmItem> DeleteDojangAlarmCommand { get; private set; }
+        NavigateCommand = new DelegateCommand<string>(Navigate);
+    }
 
-        public AlarmViewModel()
+    private void DeleteAlarm(AlarmItem alarm)
+    {
+        if (alarm == null) return;
+
+        foreach (var categoryKey in AlarmService.Instance.AlarmsByCategory.Keys)
         {
-            DeleteHadoAlarmCommand = new DelegateCommand<AlarmItem>(alarm => AlarmService.Instance.RemoveAlarm("Hado", alarm));
-            DeleteGunjyoAlarmCommand = new DelegateCommand<AlarmItem>(alarm => AlarmService.Instance.RemoveAlarm("Gunjyo", alarm));
-            DeleteDojangAlarmCommand = new DelegateCommand<AlarmItem>(alarm => AlarmService.Instance.RemoveAlarm("Dojang", alarm));
+            var alarmsInCategory = AlarmService.Instance.AlarmsByCategory[categoryKey];
+            if (alarmsInCategory.Contains(alarm))
+            {
+                alarmsInCategory.Remove(alarm);
+                break;
+            }
+        }
+
+        RaisePropertyChanged(nameof(HadoAlarms));
+        RaisePropertyChanged(nameof(GunjyoAlarms));
+        RaisePropertyChanged(nameof(DojangAlarms));
+    }
+
+    private void Navigate(string viewName)
+    {
+        if (!string.IsNullOrEmpty(viewName))
+        {
+            _regionManager.RequestNavigate("MainRegion", viewName);
         }
     }
 }
