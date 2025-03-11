@@ -249,7 +249,7 @@ namespace CarPaintingProcess.ViewModels
             Mat hsvImage = new Mat();
             Cv2.CvtColor(image, hsvImage, ColorConversionCodes.BGR2HSV);
             DetectedHSVColor = hsvImage.At<Vec3b>(centerY, centerX);
-            double h = Convert.ToDouble(DetectedHSVColor.Item0) * 2;
+            double h = Convert.ToDouble(DetectedHSVColor.Item0);
             byte byteh = Convert.ToByte(h);
 
             DetectedColor = new SolidColorBrush(Color.FromRgb(red, green, blue));
