@@ -25,7 +25,12 @@ namespace CarPaintingProcess.ViewModels
             get { return _str; }
             set { SetProperty(ref _str, value); }
         }
-
+        private bool _isSearchEnabled = true;
+        public bool IsSearchEnabled
+        {
+            get { return _isSearchEnabled; }
+            set { SetProperty(ref _isSearchEnabled, value); }
+        }
         // 선택된 날짜
         private DateTime? _selectedDate;
         public DateTime? SelectedDate
@@ -74,6 +79,8 @@ namespace CarPaintingProcess.ViewModels
         // DB에서 select 해오기
         private void LoadData()
         {
+            if (!IsSearchEnabled) return; // 이미 비활성화된 경우 실행 방지
+            IsSearchEnabled = false; // 버튼 비활성화
             _dbLink.Connect();
 
             if (SelectedDate == null)
@@ -145,7 +152,9 @@ namespace CarPaintingProcess.ViewModels
                     }
                 }
             }
+
             _dbLink.Disconnect();
+            IsSearchEnabled = true;
         }
 
         // 엑셀로 저장하기

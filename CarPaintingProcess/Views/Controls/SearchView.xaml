@@ -62,7 +62,8 @@
                 Height="35"
                 Background="#260099"
                 Foreground="White"
-                Command="{Binding LoadDataCommand}">
+                Command="{Binding LoadDataCommand}"
+                 IsEnabled="{Binding IsSearchEnabled}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
