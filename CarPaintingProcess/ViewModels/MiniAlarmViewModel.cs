@@ -1,44 +1,54 @@
 ﻿using Prism.Mvvm;
 using Prism.Commands;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Collections.Specialized;
 
-namespace CarPaintingProcess.ViewModels
+public class MiniAlarmViewModel : BindableBase
 {
-    public class MiniAlarmViewModel : BindableBase
+    private ObservableCollection<AlarmItem> _alarms;
+    public ObservableCollection<AlarmItem> Alarms
     {
-        public ObservableCollection<AlarmItem> Alarms { get; set; }
+        get => _alarms;
+        private set => SetProperty(ref _alarms, value);
+    }
 
-        public DelegateCommand<AlarmItem> DeleteAlarmCommand { get; private set; }
+    public DelegateCommand<AlarmItem> DeleteAlarmCommand { get; private set; }
 
-        public MiniAlarmViewModel()
+    public MiniAlarmViewModel()
+    {
+        _alarms = new ObservableCollection<AlarmItem>(
+            AlarmService.Instance.AlarmsByCategory["Hado"]
+            .Concat(AlarmService.Instance.AlarmsByCategory["Gunjyo"])
+            .Concat(AlarmService.Instance.AlarmsByCategory["Dojang"])
+        );
+        foreach (var category in AlarmService.Instance.AlarmsByCategory.Values)
         {
-            // 모든 알람을 하나의 리스트로 합침
-            Alarms = new ObservableCollection<AlarmItem>(
-                AlarmService.Instance.AlarmsByCategory["Hado"]
-                .Concat(AlarmService.Instance.AlarmsByCategory["Gunjyo"])
-                .Concat(AlarmService.Instance.AlarmsByCategory["Dojang"])
-            );
-
-            DeleteAlarmCommand = new DelegateCommand<AlarmItem>(DeleteAlarm);
+            category.CollectionChanged += OnAlarmsChanged;
         }
 
-        private void DeleteAlarm(AlarmItem alarm)
-        {
-            if (alarm != null)
-            {
-                // 카테고리를 자동으로 찾아서 삭제
-                foreach (var category in AlarmService.Instance.AlarmsByCategory.Keys)
-                {
-                    if (AlarmService.Instance.AlarmsByCategory[category].Contains(alarm))
-                    {
-                        AlarmService.Instance.AlarmsByCategory[category].Remove(alarm);
-                        break;
-                    }
-                }
+        DeleteAlarmCommand = new DelegateCommand<AlarmItem>(DeleteAlarm);
+    }
 
-                Alarms.Remove(alarm);
+    private void OnAlarmsChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        Alarms = new ObservableCollection<AlarmItem>(
+            AlarmService.Instance.AlarmsByCategory["Hado"]
+            .Concat(AlarmService.Instance.AlarmsByCategory["Gunjyo"])
+            .Concat(AlarmService.Instance.AlarmsByCategory["Dojang"])
+        );
+    }
+
+    private void DeleteAlarm(AlarmItem alarm)
+    {
+        if (alarm == null) return;
+
+        foreach (var category in AlarmService.Instance.AlarmsByCategory.Keys)
+        {
+            if (AlarmService.Instance.AlarmsByCategory[category].Contains(alarm))
+            {
+                AlarmService.Instance.AlarmsByCategory[category].Remove(alarm);
+                break;
             }
         }
     }
