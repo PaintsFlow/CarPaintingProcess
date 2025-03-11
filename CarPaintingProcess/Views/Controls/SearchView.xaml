@@ -124,6 +124,7 @@
                             <DataGridTextColumn Header="전류(V)" Binding="{Binding current}" Width="1*"/>
                             <DataGridTextColumn Header="전압(A)" Binding="{Binding voltage}" Width="1*"/>
                             <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*"/>
+                            <!--<DataGridTextColumn Header="온도(℃)" Binding="{Binding temperature}" Width="1*" />-->
                         </DataGrid.Columns>
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
@@ -136,62 +137,101 @@
                     </DataGrid>
                 </Grid>
 
-                <!-- [2] 도장 공정 구역 -->
+                <!-- [2] 도장 공정 구역 (두 개의 영역으로 나눔) -->
                 <Grid Grid.Row="1" Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <!-- 왼쪽 영역 -->
+                        <ColumnDefinition Width="1*"/>
+                        <!-- 오른쪽 영역 -->
+                    </Grid.ColumnDefinitions>
 
-                    <!-- 도장 공정 Label -->
-                    <Label Content="● 도장 공정"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           Margin="0,0,0,10"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Top"/>
+                    <!-- 왼쪽: 도장 공정 -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <!-- 도장 공정 DataGrid -->
-                    <DataGrid x:Name="PaintingTable"
-                              Grid.Row="1"
-                              AutoGenerateColumns="False"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              CanUserReorderColumns="False"
-                              CanUserResizeRows="False"
-                              CanUserResizeColumns="False"
-                              VerticalScrollBarVisibility="Auto"
-                              FrozenColumnCount="1"
-                              ItemsSource="{Binding PaintingData}"
-                              IsReadOnly="True"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch"
-                              Margin="0">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="페인트 유량(mL/min)" Binding="{Binding paintamount}" Width="1*"/>
-                            <DataGridTextColumn Header="스프레이건 압력(bar)" Binding="{Binding pressure}" Width="1*"/>
-                            <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                        <Label Content="● 도장 공정"
+               FontSize="20"
+               FontWeight="SemiBold"
+               Margin="0,0,0,10"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"/>
+
+                        <DataGrid x:Name="PaintingTable"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="False"
+                  VerticalScrollBarVisibility="Auto"
+                  FrozenColumnCount="1"
+                  ItemsSource="{Binding PaintingData}"
+                  IsReadOnly="True"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Margin="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="페인트 유량(mL/min)" Binding="{Binding paintamount}" Width="1*"/>
+                                <DataGridTextColumn Header="스프레이건 압력(bar)" Binding="{Binding pressure}" Width="1*"/>
+                                <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Content="● 건조 환경"
+               FontSize="20"
+               FontWeight="SemiBold"
+               Margin="0,0,0,10"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"/>
+
+                        <DataGrid x:Name="DryTable"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="False"
+                  VerticalScrollBarVisibility="Auto"
+                  FrozenColumnCount="1"
+                  ItemsSource="{Binding DryData}"
+                  IsReadOnly="True"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Margin="10,0,0,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="온도(℃)" Binding="{Binding temperature}" Width="1*" />
+                                <DataGridTextColumn Header="습도(%)" Binding="{Binding humidity}" Width="1*"/>
+                                <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </Grid>
 
-                <!-- [3] 건조 환경 구역 -->
                 <Grid Grid.Row="2" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
-                    <!-- 건조 환경 Label -->
-                    <Label Content="● 건조 환경"
+                    <Label Content="● 알람"
                            FontSize="20"
                            FontWeight="SemiBold"
                            Margin="0,0,0,10"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"/>
 
-                    <!-- 건조 환경 DataGrid -->
-                    <DataGrid x:Name="DryTable"
+                    <DataGrid x:Name="AlarmTable"
                               Grid.Row="1"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
@@ -201,21 +241,22 @@
                               CanUserResizeColumns="False"
                               VerticalScrollBarVisibility="Auto"
                               FrozenColumnCount="1"
-                              ItemsSource="{Binding DryData}"
+                              ItemsSource="{Binding AlarmData}"
                               IsReadOnly="True"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
-                              Margin="0">
+                              Margin="0,0,0,0">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="온도(℃)" Binding="{Binding temperature}" Width="1*" />
-                            <DataGridTextColumn Header="습도(%)" Binding="{Binding humidity}" Width="1*"/>
+                            <DataGridTextColumn Header="ID" Binding="{Binding alarmid}" Width="1*" />
+                            <DataGridTextColumn Header="센서명" Binding="{Binding sensor}" Width="1*"/>
+                            <DataGridTextColumn Header="현재 값" Binding="{Binding data}" Width="1*"/>
+                            <DataGridTextColumn Header="경고 메시지" Binding="{Binding message}" Width="1*"/>
                             <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*" />
                         </DataGrid.Columns>
-                        
+
                     </DataGrid>
                 </Grid>
             </Grid>
         </Border>
-
     </Grid>
 </UserControl>

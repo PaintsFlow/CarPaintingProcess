@@ -16,6 +16,13 @@
     <Style TargetType="DataGridRow">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="Black"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding temperature}" Value="50">
+                <Setter Property="Background" Value="LightCoral"/>
+            </DataTrigger>
+
+        </Style.Triggers>
     </Style>
+
 
 </ResourceDictionary>

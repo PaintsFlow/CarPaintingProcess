@@ -14,7 +14,7 @@
 
         <Storyboard x:Key="FlashStoryboard" RepeatBehavior="Forever" AutoReverse="True">
             <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
-                            From="Red" To="White" Duration="0:0:1" />
+                            From="LightCoral" To="White" Duration="0:0:1" />
         </Storyboard>
 
         <Style x:Key="DeleteButtonStyle" TargetType="Button">
@@ -69,7 +69,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border x:Name="AlarmItemContainer"
-                                    Background="Red"
+                                    Background="LightCoral"
                                     CornerRadius="6"
                                     Padding="3"
                                     Margin="2"
