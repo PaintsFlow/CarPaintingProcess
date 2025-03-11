@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="Paint Flow Shell" 
+        Title="Paint Flow Shell"
+        WindowState="Maximized" 
         Height="1080" Width="1920">
 
     <Grid>

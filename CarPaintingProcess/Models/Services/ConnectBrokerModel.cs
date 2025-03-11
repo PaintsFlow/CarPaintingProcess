@@ -13,7 +13,7 @@ using RabbitMQ.Client.Events;
 
 namespace CarPaintingProcess.Models.Services
 {
-    public class ConnectBrokerModel
+    public partial class ConnectBrokerModel
     {
         private static ConnectBrokerModel staticConnectBroker;
         private IConnection connection;
@@ -40,8 +40,8 @@ namespace CarPaintingProcess.Models.Services
                     return;
                 }
             }
-
             await Consume(); // 연결이 이미 되어 있거나, 새로 연결되면 메시지 소비 시작
+            await ConsumeAlarm(); // 새롭게 추가한 alarm 익스체인지 소비
         }
 
         public async void Producerfunc(string message)
@@ -117,7 +117,7 @@ namespace CarPaintingProcess.Models.Services
                 await channel.BasicConsumeAsync(queue: queueName, autoAck: true, consumer: consumer);
             }
             catch (Exception ex)
-            { 
+            {
                 MessageBox.Show($"🚨 메세지 수신 실패 : {ex.Message}");
             }
         }
@@ -145,6 +145,6 @@ namespace CarPaintingProcess.Models.Services
             {
                 MessageBox.Show($"🚨 메세지 게시 오류: {ex.Message}");
             }
-        }       
+        }
     }
 }
