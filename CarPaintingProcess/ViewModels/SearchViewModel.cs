@@ -34,13 +34,13 @@ namespace CarPaintingProcess.ViewModels
             set { SetProperty(ref _isSearchEnabled, value); }
         }
 
-        // 선택된 날짜
-        private DateTime? _selectedDate;
+        private DateTime? _selectedDate = DateTime.Today; // 오늘 날짜로 초기화
         public DateTime? SelectedDate
         {
             get { return _selectedDate; }
             set { SetProperty(ref _selectedDate, value); }
         }
+
 
         // 테이블에 넣을 data
         private ObservableCollection<DryModel> _dryData;
