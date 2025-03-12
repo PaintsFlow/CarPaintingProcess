@@ -126,7 +126,14 @@
                             <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*"/>
                             <!--<DataGridTextColumn Header="온도(℃)" Binding="{Binding temperature}" Width="1*" />-->
                         </DataGrid.Columns>
-
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="White"/>
+                                <!-- 행 배경색 -->
+                                <Setter Property="Foreground" Value="Black"/>
+                                <!-- 텍스트 색상 -->
+                            </Style>
+                        </DataGrid.RowStyle>
                     </DataGrid>
                 </Grid>
 
@@ -173,6 +180,14 @@
                                 <DataGridTextColumn Header="스프레이건 압력(bar)" Binding="{Binding pressure}" Width="1*"/>
                                 <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*"/>
                             </DataGrid.Columns>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Background" Value="White"/>
+                                    <!-- 행 배경색 -->
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <!-- 텍스트 색상 -->
+                                </Style>
+                            </DataGrid.RowStyle>
                         </DataGrid>
                     </Grid>
                     <Grid Grid.Column="1">
@@ -208,6 +223,14 @@
                                 <DataGridTextColumn Header="습도(%)" Binding="{Binding humidity}" Width="1*"/>
                                 <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*" />
                             </DataGrid.Columns>
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="Background" Value="White"/>
+                                    <!-- 행 배경색 -->
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <!-- 텍스트 색상 -->
+                                </Style>
+                            </DataGrid.RowStyle>
                         </DataGrid>
                     </Grid>
                 </Grid>
@@ -246,6 +269,14 @@
                             <DataGridTextColumn Header="경고 메시지" Binding="{Binding message}" Width="1*"/>
                             <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*" />
                         </DataGrid.Columns>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="White"/>
+                                <!-- 행 배경색 -->
+                                <Setter Property="Foreground" Value="Black"/>
+                                <!-- 텍스트 색상 -->
+                            </Style>
+                        </DataGrid.RowStyle>
 
                     </DataGrid>
                 </Grid>
