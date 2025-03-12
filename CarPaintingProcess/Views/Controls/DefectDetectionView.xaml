@@ -24,14 +24,14 @@
             <Label x:Name="info" Content="검사할 이미지를 업로드 해주세요." Height="150" Margin="0,70,0,0" HorizontalAlignment="Center" FontSize="20" Visibility="{Binding IsImageLoaded, Converter={StaticResource BoolToVisibilityConverter}}"/>
             <Image x:Name="DetectImage" MaxWidth="1500" MaxHeight="400" Source="{Binding DetectImageSource}"></Image>
         </StackPanel>
-        <Button Name="ImageButton" Grid.Row="1" Content="이미지 업로드" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="5" Command="{Binding LoadImageCommand}" Background="#A1824A">
+        <Button Name="ImageButton" Grid.Row="1" Content="이미지 업로드" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="5,5,150,5" Command="{Binding LoadImageCommand}" Background="#A1824A">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Name="DetectionStartButton" Grid.Row="1" Content="검사 시작" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="5,5,150,5" Background="#A1824A" Command="{Binding DetectColorCommand}">
+        <Button Name="DetectionStartButton" Grid.Row="1" Content="검사 시작" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Height="35" Margin="5" Background="#A1824A" Command="{Binding DetectColorCommand}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15"/>
