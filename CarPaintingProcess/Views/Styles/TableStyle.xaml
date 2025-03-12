@@ -13,11 +13,7 @@
         <Setter Property="BorderThickness" Value="0.5"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
     </Style>
-    <Style TargetType="DataGridRow">
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="Foreground" Value="Black"/>
-        
-    </Style>
+
 
 
 </ResourceDictionary>

@@ -73,7 +73,7 @@
 
         <!-- 표 영역 -->
         <Border Grid.Row="1"
-                Background="Transparent"
+               
                 CornerRadius="15"
                 Margin="5">
             <!-- 전체 표들을 감싸는 Grid -->
@@ -126,14 +126,7 @@
                             <DataGridTextColumn Header="시간" Binding="{Binding TimeFormatted}" Width="1*"/>
                             <!--<DataGridTextColumn Header="온도(℃)" Binding="{Binding temperature}" Width="1*" />-->
                         </DataGrid.Columns>
-                        <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow">
-                                <Setter Property="Background" Value="White"/>
-                                <!-- 행 배경색 -->
-                                <Setter Property="Foreground" Value="Black"/>
-                                <!-- 텍스트 색상 -->
-                            </Style>
-                        </DataGrid.RowStyle>
+
                     </DataGrid>
                 </Grid>
 
