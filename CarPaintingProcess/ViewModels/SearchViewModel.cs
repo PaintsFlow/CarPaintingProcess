@@ -13,6 +13,7 @@ using CarPaintingProcess.Models.Services;
 using System.Collections.ObjectModel;
 using CarPaintingProcess.Models;
 using System.Data;
+using System.Threading.Tasks; 
 
 namespace CarPaintingProcess.ViewModels
 {
@@ -26,15 +27,22 @@ namespace CarPaintingProcess.ViewModels
             set { SetProperty(ref _str, value); }
         }
 
-        // 선택된 날짜
-        private DateTime? _selectedDate;
+        private bool _isSearchEnabled = true;
+        public bool IsSearchEnabled
+        {
+            get { return _isSearchEnabled; }
+            set { SetProperty(ref _isSearchEnabled, value); }
+        }
+
+        private DateTime? _selectedDate = DateTime.Today; // 오늘 날짜로 초기화
         public DateTime? SelectedDate
         {
             get { return _selectedDate; }
             set { SetProperty(ref _selectedDate, value); }
         }
 
-        //테이블에 넣을 data
+
+        // 테이블에 넣을 data
         private ObservableCollection<DryModel> _dryData;
         public ObservableCollection<DryModel> DryData
         {
@@ -56,66 +64,77 @@ namespace CarPaintingProcess.ViewModels
             set { SetProperty(ref _paintingData, value); }
         }
 
+        private ObservableCollection<AlarmModel> _AlarmData;
+        public ObservableCollection<AlarmModel> AlarmData
+        {
+            get { return _AlarmData; }
+            set { SetProperty(ref _AlarmData, value); }
+        }
+
+        // 명령 바인딩
         public ICommand LoadDataCommand { get; }
         public ICommand SaveExcelCommand { get; }
-
 
         public SearchViewModel()
         {
             _dbLink = DBlink.Instance();
+
+            // 비동기용 커맨드 바인딩
+            LoadDataCommand = new DelegateCommand(async () => await LoadDataAsync());
             SaveExcelCommand = new DelegateCommand(DataToExcel);
-            LoadDataCommand = new DelegateCommand(LoadData);
+
             DryData = new ObservableCollection<DryModel>();
             PaintingData = new ObservableCollection<PaintingModel>();
             ElectroDepositionData = new ObservableCollection<ElectroDepositionModel>();
-
+            AlarmData = new ObservableCollection<AlarmModel>();
         }
 
-        // DB에서 select 해오기
-        private void LoadData()
+        private async Task LoadDataAsync()
         {
-            _dbLink.Connect();
+            if (!IsSearchEnabled) return;
 
-            if (SelectedDate == null)
+            // 버튼 비활성화
+            IsSearchEnabled = false;
+
+            try
             {
-                MessageBox.Show("날짜를 선택해주세요", "날짜 선택", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            else
-            {
+                if (SelectedDate == null)
+                {
+                    MessageBox.Show("날짜를 선택해주세요", "날짜 선택", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 string selectedDatestr = SelectedDate?.ToString("yyyy-MM-dd");
                 string startDatestr = selectedDatestr + " 00:00:00";
                 string endDatestr = selectedDatestr + " 23:59:59";
 
-                if (_dbLink.ConnectOk())
+                await Task.Run(() =>
                 {
-                    //건조
-                    
+                    _dbLink.Connect();
+                    if (!_dbLink.ConnectOk()) return;
+
                     string sql = $"SELECT * FROM dry WHERE time BETWEEN '{startDatestr}' AND '{endDatestr}' ORDER BY time";
-
                     DataTable results = _dbLink.Select(sql);
-                    DryData.Clear();
 
+                    // 가져온 데이터는 임시 리스트에 저장
+                    var tempDryData = new ObservableCollection<DryModel>();
                     foreach (DataRow row in results.Rows)
                     {
-                        var dryModel = new DryModel
+                        tempDryData.Add(new DryModel
                         {
                             time = Convert.ToDateTime(row["time"]),
                             temperature = Convert.ToDouble(row["temperature"]),
                             humidity = Convert.ToDouble(row["humidity"])
-                        };
-                        DryData.Add(dryModel);
+                        });
                     }
 
-                    //하도전착
                     sql = $"SELECT * FROM electroDeposition WHERE time BETWEEN '{startDatestr}' AND '{endDatestr}' ORDER BY time";
-
                     results = _dbLink.Select(sql);
-                    ElectroDepositionData.Clear();
 
+                    var tempElectroData = new ObservableCollection<ElectroDepositionModel>();
                     foreach (DataRow row in results.Rows)
                     {
-                        var electrodepositionModel = new ElectroDepositionModel
+                        tempElectroData.Add(new ElectroDepositionModel
                         {
                             time = Convert.ToDateTime(row["time"]),
                             waterlevel = Convert.ToDouble(row["waterlevel"]),
@@ -123,29 +142,65 @@ namespace CarPaintingProcess.ViewModels
                             ph = Convert.ToDouble(row["pH"]),
                             current = Convert.ToDouble(row["current"]),
                             voltage = Convert.ToDouble(row["voltage"])
-                        };
-                        ElectroDepositionData.Add(electrodepositionModel);
+                        });
                     }
-
-                    //도장 공정
                     sql = $"SELECT * FROM paint WHERE time BETWEEN '{startDatestr}' AND '{endDatestr}' ORDER BY time";
-
                     results = _dbLink.Select(sql);
-                    PaintingData.Clear();
 
+                    var tempPaintingData = new ObservableCollection<PaintingModel>();
                     foreach (DataRow row in results.Rows)
                     {
-                        var paintingModel = new PaintingModel
+                        tempPaintingData.Add(new PaintingModel
                         {
                             time = Convert.ToDateTime(row["time"]),
                             paintamount = Convert.ToDouble(row["paintamount"]),
                             pressure = Convert.ToDouble(row["pressure"])
-                        };
-                        PaintingData.Add(paintingModel);
+                        });
                     }
-                }
+                    sql = $"SELECT * FROM alarm WHERE time BETWEEN '{startDatestr}' AND '{endDatestr}' ORDER BY time";
+                    results = _dbLink.Select(sql);
+
+                    var tempAlarmData = new ObservableCollection<AlarmModel>();
+                    foreach (DataRow row in results.Rows)
+                    {
+                        tempAlarmData.Add(new AlarmModel
+                        {
+                            alarmid = Convert.ToInt32(row["alarmid"]),
+                            time = Convert.ToDateTime(row["time"]),
+                            sensor = Convert.ToString(row["sensor"]),
+                            data = Convert.ToDouble(row["data"]),
+                            message = Convert.ToString(row["message"])
+                        });
+                    }
+
+                    _dbLink.Disconnect(); // DB 연결 해제
+
+                    // UI 스레드에서 안전하게 컬렉션 갱신
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        DryData.Clear();
+                        foreach (var item in tempDryData) DryData.Add(item);
+
+                        ElectroDepositionData.Clear();
+                        foreach (var item in tempElectroData) ElectroDepositionData.Add(item);
+
+                        PaintingData.Clear();
+                        foreach (var item in tempPaintingData) PaintingData.Add(item);
+
+                        AlarmData.Clear();
+                        foreach (var item in tempAlarmData) AlarmData.Add(item);
+                    });
+                });
             }
-            _dbLink.Disconnect();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"데이터 조회 중 오류가 발생했습니다. \n{ex.Message}", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                // 조회 버튼 다시 활성화
+                IsSearchEnabled = true;
+            }
         }
 
         // 엑셀로 저장하기
@@ -184,7 +239,6 @@ namespace CarPaintingProcess.ViewModels
                         "저장 완료", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show($"오류 발생 : {ex.Message}", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
