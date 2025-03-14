@@ -30,5 +30,9 @@
 4. 라이브 차트
 5. Prism
 
+
+https://github.com/user-attachments/assets/346d7a88-6b7e-4895-abb5-2bb14ee22fd7
+
+
 ---
 기여 : **김예린, 김창헌**
