@@ -31,7 +31,11 @@
 5. Prism
 
 1.실시간 차트
-https://github.com/user-attachments/assets/346d7a88-6b7e-4895-abb5-2bb14ee22fd7
+
+
+https://github.com/user-attachments/assets/f2955f8b-af19-4545-9756-9d6bc4b7b674
+
+
 
 
 2.알람
