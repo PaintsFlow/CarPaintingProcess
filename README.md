@@ -30,8 +30,19 @@
 4. 라이브 차트
 5. Prism
 
-
+1.실시간 차트
 https://github.com/user-attachments/assets/346d7a88-6b7e-4895-abb5-2bb14ee22fd7
+2.알람
+https://github.com/user-attachments/assets/8fbac397-05a8-4ea9-a1aa-8904f5764c23
+3.결함 검사
+![녹화_2025_03_14_09_43_03_979](https://github.com/user-attachments/assets/d40be681-55e8-44a8-b9d2-2bf220ffbaea)
+4.조회/다운로드
+https://github.com/user-attachments/assets/f9ef1c91-8a41-4117-9328-4438a9e6bfe3
+5.도장공정 PLC 제어
+https://github.com/user-attachments/assets/d69207f1-5369-469d-9627-ef7250c48bf4
+
+
+
 
 
 ---
