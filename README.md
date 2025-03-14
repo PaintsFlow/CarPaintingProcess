@@ -32,6 +32,8 @@
 
 1.실시간 차트
 https://github.com/user-attachments/assets/346d7a88-6b7e-4895-abb5-2bb14ee22fd7
+
+
 2.알람
 https://github.com/user-attachments/assets/8fbac397-05a8-4ea9-a1aa-8904f5764c23
 3.결함 검사
